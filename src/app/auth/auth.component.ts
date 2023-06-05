@@ -17,9 +17,9 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     if (localStorage.getItem('authorized')) {
       this.router.navigate(['/dashboard']);
-    }
+    }  
   }
 }

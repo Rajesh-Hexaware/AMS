@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WebstorgeService {
-  constructor(private router: Router) {}
+  constructor(private router: Router, ) {}
 
   /**
    * Login Functionality call from Login
@@ -18,9 +17,12 @@ export class WebstorgeService {
     this.router.navigate(['/dashboard']);
   }
 
-  public Logout(): void {
+  public Logout(): void {  
+    // window.location.reload();    
     localStorage.removeItem('authorized');
-    localStorage.removeItem('loginTime');
+    localStorage.removeItem('loginTime');    
     this.router.navigate(['/auth/signin']);
+   
   }
+  
 }
