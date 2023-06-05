@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { routes } from 'src/app/core/helpers/routes';
 import { WebstorgeService } from 'src/app/shared/webstorge.service';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { browserRefresh } from '../../app.component';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -20,21 +21,28 @@ export class SigninComponent implements OnInit {
     email: new FormControl('user@dreamguystech.com', [Validators.required]),
     password: new FormControl('12345', [Validators.required]),
   });
+  accessToken: any;
+  sub: any;
 
   get f() {
     return this.form.controls;
   }
 
-  constructor(private storage: WebstorgeService, private authService: SocialAuthService, private router: Router) { }
+  constructor(private storage: WebstorgeService, private authService: SocialAuthService, private router: Router,private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.password = 'password';
-    this.googleSignin();
-   
+    this.sub = this.route.queryParamMap.subscribe((params:any) => {
+      let param = params.params.page;
+      if(!param || browserRefresh){
+        this.googleSignin();
+      }
+    });    
+         
   }
 
-  googleSignin() {
-    this.authService.authState.subscribe((user) => {
+  googleSignin(): void {
+    this.authService.authState.subscribe((user:any) => {
       this.user = user;
       this.storage.Login(this.user);
       this.loggedIn = (user != null);
@@ -54,7 +62,9 @@ export class SigninComponent implements OnInit {
       this.form.markAllAsTouched();
     }
   }
-  ngOnDestroy() { }
+  ngOnDestroy() { 
+    this.sub.unsubscribe();
+  }
 
   onClick() {
     if (this.password === 'password') {
@@ -67,5 +77,5 @@ export class SigninComponent implements OnInit {
   }
   signOut(): void {
     this.authService.signOut();
-  }
+  } 
 }

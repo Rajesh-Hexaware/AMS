@@ -2270,14 +2270,14 @@ export class SidebarService {
             },
           ],
         },
-        {
-          menuValue: 'Logout',
-          hasSubRoute: false,
-          icon: 'log-out',
-          showSubRoute: false,
-          route: routes.signIn,
-          subMenus: []
-        }
+        // {
+        //   menuValue: 'Logout',
+        //   hasSubRoute: false,
+        //   icon: 'log-out',
+        //   showSubRoute: false,
+        //   route: routes.signIn,
+        //   subMenus: []
+        // }
       ]
     }
   ]

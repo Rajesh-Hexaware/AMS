@@ -21,7 +21,7 @@ export class WebstorgeService {
     // window.location.reload();    
     localStorage.removeItem('authorized');
     localStorage.removeItem('loginTime');    
-    this.router.navigate(['/auth/signin']);
+    this.router.navigate(['/auth/signin'], { queryParams: { page: 1 } });
    
   }
   
