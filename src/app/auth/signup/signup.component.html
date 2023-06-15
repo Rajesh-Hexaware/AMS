@@ -12,14 +12,15 @@
           <h3>Create an Account</h3>
           <h4>Continue where you left off</h4>
         </div>
-        <form [formGroup]="form">
+        <form [formGroup]="sinupForm">        
+
           <div class="form-login">
             <label>Full Name</label>
             <div class="form-addons">
               <input
                 type="text"
                 placeholder="Enter your full name"
-                formControlName="email"
+                formControlName="name"
               />
               <img src="assets/img/icons/users1.svg" alt="img" />
             </div>
@@ -31,20 +32,14 @@
                 type="text"
                 placeholder="Enter your email address"
                 id="email"
-                [ngClass]="{
-                  'is-invalid': f['email'].touched && f['email'].invalid
-                }"
+                formControlName="email"
               />
               <img src="assets/img/icons/mail.svg" alt="img" />
             </div>
-            <div
-              *ngIf="f['email'].touched && f['email'].invalid"
-              class="invalid-feedback"
-            >
-              <div *ngIf="f['email'].errors && f['email'].errors['required']">
-                Email is required.
-              </div>
-            </div>
+            <div *ngIf="submitted && f['email'].errors">
+              <div *ngIf="f['email'].errors['required']" class="text-danger is-invalid">Email is required.</div>
+              <div *ngIf="f['email'].errors['email']" class="text-danger is-invalid">Please enter a valid Email address.</div>
+          </div>
             <div *ngIf="CustomControler != 0" class="invalid-feedback">
               {{ CustomControler }}
             </div>
@@ -58,9 +53,6 @@
                 placeholder="Enter your password"
                 formControlName="password"
                 id="password"
-                [ngClass]="{
-                  'is-invalid': f['password'].touched && f['password'].invalid
-                }"
               />
               <span
                 class="fas toggle-password fa-eye"
@@ -73,18 +65,12 @@
                 *ngIf="!show"
               ></span>
             </div>
-            <div
-              *ngIf="f['password'].touched && f['password'].invalid"
-              class="invalid-feedback"
-            >
-              <div
-                *ngIf="f['password'].errors && f['password'].errors['required']"
-              >
-                Password is required.
-              </div>
-            </div>
+            <div *ngIf="submitted && f['password'].errors">
+              <div *ngIf="f['password'].errors['required']" class="text-danger is-invalid">Password is required.</div>            
+
           </div>
-          <div class="form-login">
+          </div>
+          <div class="form-login" (click)="onSubmit()">
             <a class="btn btn-login" [routerLink]="routes.signUp" type="submit"
               >Sign Up</a
             >
