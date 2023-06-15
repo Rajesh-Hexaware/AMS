@@ -55,17 +55,17 @@ src="assets/img/icons/filter.svg"
       <div class="wordset">
         <ul>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"
+            <a (click)="openPDF()" data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"
               ><img src="assets/img/icons/pdf.svg" alt="img"
             /></a>
           </li>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"
+            <a (click)="exportexcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"
               ><img src="assets/img/icons/excel.svg" alt="img"
             /></a>
           </li>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"
+            <a (click)= "printTable()" data-bs-toggle="tooltip" data-bs-placement="top" title="print"
               ><img src="assets/img/icons/printer.svg" alt="img"
             /></a>
           </li>
@@ -109,7 +109,7 @@ src="assets/img/icons/filter.svg"
         matSort
         matSortActive="Sno"
         matSortDirection="asc"
-        matSortDisableClear class="table datanew">
+        matSortDisableClear class="table datanew"  id="printTable">
         <thead>
           <tr>
             <th>
@@ -134,17 +134,17 @@ src="assets/img/icons/filter.svg"
             </td>
             <td>
               <a class="product-img">
-                <img [src]="products.Image" alt="product" />
+                <img [src]="products.Image"/>
               </a>
             </td>
             <td>{{ products.BrandName }}</td>
             <td>{{ products.BrandDescription }}</td>
             <td>
-              <a class="me-3" [routerLink]="routes.editBrand">
+              <a class="me-3" (click)="onEdit(products)" [routerLink]="routes.editBrand">
                 <img src="assets/img/icons/edit.svg" alt="img" />
               </a>
               <a
-                (click)="deleteBtn()"
+              (click)="deleteBrand(products)"
                 class="me-3 confirm-text"
                 href="javascript:void(0);"
               >

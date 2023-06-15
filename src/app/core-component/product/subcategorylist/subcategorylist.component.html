@@ -35,15 +35,15 @@
       <div class="wordset">
         <ul>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="assets/img/icons/pdf.svg"
+            <a  (click)="openPDF()" data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="assets/img/icons/pdf.svg"
                 alt="img" /></a>
           </li>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="assets/img/icons/excel.svg"
+            <a (click)="exportexcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="assets/img/icons/excel.svg"
                 alt="img" /></a>
           </li>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="assets/img/icons/printer.svg"
+            <a (click)= "printTable()" data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="assets/img/icons/printer.svg"
                 alt="img" /></a>
           </li>
         </ul>
@@ -95,7 +95,7 @@
     <!-- /Filter -->
     <div class="table-responsive">
       <table (matSortChange)="sortData($event)" matSort matSortActive="Sno" matSortDirection="asc" matSortDisableClear
-        class="table datanew">
+        class="table datanew" id="printTable">
         <thead>
           <tr>
             <th>
@@ -104,7 +104,7 @@
                 <span class="checkmarks"></span>
               </label>
             </th>
-            <th>Image</th>
+            <!-- <th>Image</th> -->
             <th mat-sort-header="Category">Category</th>
             <th mat-sort-header="Parentcategory">Parent category</th>
             <th mat-sort-header="CategoryCode">Category Code</th>
@@ -121,18 +121,18 @@
                 <span class="checkmarks"></span>
               </label>
             </td>
-            <td>
+            <!-- <td>
               <a class="product-img">
                 <img [src]="products.Image" alt="product" />
               </a>
-            </td>
+            </td> -->
             <td>{{ products.Category }}</td>
             <td>{{ products.Parentcategory }}</td>
             <td>{{ products.CategoryCode }}</td>
             <td>{{ products.Description }}</td>
             <td>{{ products.CreatedBy }}</td>
             <td>
-              <a class="me-3" [routerLink]="routes.editSubCategory">
+              <a (click)="onEdit(products)" class="me-3" [routerLink]="routes.editSubCategory">
                 <img src="assets/img/icons/edit.svg" alt="img" />
               </a>
               <a (click)="deleteBtn()" class="me-3 confirm-text" href="javascript:void(0);">

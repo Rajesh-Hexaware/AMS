@@ -7,39 +7,58 @@
         <!-- /add -->
         <div class="card">
             <div class="card-body">
+                <form  [formGroup]="categoryformValue">
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Parent Category</label>
-                            <select class="form-select">
-                                <option>Computers</option>
-                                <option>Category</option>
+                            <label for="Parentcategory">Parent Category</label>
+                            <select [ngClass]="{ 'is-invalid': submitted && f['Parentcategory'].errors }" class="form-control form-select"
+                            id="Parentcategory" name="Parentcategory" formControlName="Parentcategory">
+                                <option>Choose Parent Category</option>
+                                <option *ngFor="let category of subCategoryList">{{category.Parentcategory}}</option>
                             </select>
+                            
+                            <div *ngIf="submitted && f['Parentcategory'].errors" class="invalid-feedback">
+                                <div *ngIf="f['Parentcategory'].errors['required']">Parentcategory is required</div>
+                              </div>
+                        </div> 
+                    </div>
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="Category">Category Name</label>
+                            <input type="text"[ngClass]="{ 'is-invalid': submitted && f['Category'].errors }" class="form-control"
+                            id="Category" name="Category" formControlName="Category">
+                            <div *ngIf="submitted && f['Category'].errors" class="invalid-feedback">
+                                <div *ngIf="f['Category'].errors['required']">Category is required</div>                               
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Category Name</label>
-                            <input type="text" value="Computers">
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Category Code</label>
-                            <input type="text" value="CT001" >
+                            <label for="CategoryCode">Category Code</label>
+                            <input type="text"[ngClass]="{ 'is-invalid': submitted && f['CategoryCode'].errors }" class="form-control"
+                            id="CategoryCode" name="CategoryCode" formControlName="CategoryCode">
+                            <div *ngIf="submitted && f['CategoryCode'].errors" class="invalid-feedback">
+                                <div *ngIf="f['CategoryCode'].errors['required']">Category is required</div>                             
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control">Computers Description</textarea>
+                            <label for="Description">Description</label>
+                            <textarea formControlName="Description" id="Description" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['Description'].errors }"></textarea>
+                            <div *ngIf="submitted && f['Description'].errors" class="invalid-feedback">
+                                <div *ngIf="f['Description'].errors['required']">Description is required</div>
+                              </div>
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
-                        <a routerLink="//product/subcategorylist" class="btn btn-cancel">Cancel</a>
+                        <a (click)="updateSubCategoryData()" href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
+                        <a [routerLink]="routes.subCategoryList" class="btn btn-cancel">Cancel</a>
                     </div>
                 </div>
+            </form>
             </div>
         </div>
         <!-- /add -->

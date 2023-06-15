@@ -1,131 +1,191 @@
-
-	<div class="page-header">
-		<div class="page-title">
-			<h4>Product Add</h4>
-			<h6>Create new product</h6>
-		</div>
+<div class="page-header">
+	<div class="page-title">
+		<h4>Product Add</h4>
+		<h6>Create new product</h6>
 	</div>
-	<!-- /add -->
-	<div class="card">
-		<div class="card-body">
+</div>
+<!-- /add -->
+<div class="card">
+	<div class="card-body">
+		<form [formGroup]="productformValue">
 			<div class="row">
 				<div class="col-lg-3 col-sm-6 col-12">
 					<div class="form-group">
-						<label>Product Name</label>
-						<input type="text">
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label>Category</label>
-						<select class="form-select">
-							<option>Choose Category</option>
-							<option>Computers</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label>Sub Category</label>
-						<select class="form-select">
-							<option>Choose Sub Category</option>
-							<option>Fruits</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label>Brand</label>
-						<select class="form-select">
-							<option>Choose Brand</option>
-							<option>Brand</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label>Unit</label>
-						<select class="form-select">
-							<option>Choose Unit</option>
-							<option>Unit</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label>SKU</label>
-						<input type="text">
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label>Minimum Qty</label>
-						<input type="text">
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label>Quantity</label>
-						<input type="text">
-					</div>
-				</div>
-				<div class="col-lg-12">
-					<div class="form-group">
-						<label>Description</label>
-						<textarea class="form-control"></textarea>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label>Tax</label>
-						<select class="form-select">
-							<option>Choose Tax</option>
-							<option>2%</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label>Discount Type</label>
-						<select class="form-select">
-							<option>Percentage</option>
-							<option>10%</option>
-							<option>20%</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label>Price</label>
-						<input type="text">
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="form-group">
-						<label> Status</label>
-						<select class="form-select">
-							<option>Closed</option>
-							<option>Open</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-12">
-					<div class="form-group">
-						<label> Product Image</label>
-						<div class="image-upload">
-							<input type="file">
-							<div class="image-uploads">
-								<img src="assets/img/icons/upload.svg" alt="img">
-								<h4>Drag and drop a file to upload</h4>
+						<label for="ProductName">Product Name</label>
+						<input type="text"[ngClass]="{ 'is-invalid': submitted && f['ProductName'].errors }" class="form-control"
+						id="ProductName" name="ProductName" formControlName="ProductName">
+						<div *ngIf="submitted && f['ProductName'].errors" class="invalid-feedback">
+							<div *ngIf="f['ProductName'].errors['required']">Product Name is required</div>
+							<div *ngIf="f['ProductName'].errors['minlength']">
+								ProductName must be at least 4 characters
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="Category">Category</label>
+						<select [ngClass]="{ 'is-invalid': submitted && f['Category'].errors }" class="form-control form-select"
+						id="Category" name="Category" formControlName="Category">
+							<option>Choose Category</option>
+							<option *ngFor="let name of categoryList">{{name.Categoryname}}</option>
+						</select>
+						<div *ngIf="submitted && f['Category'].errors" class="invalid-feedback">
+							<div *ngIf="f['Category'].errors['required']">Category Name is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="subCategoryName">Sub Category</label>
+						<select [ngClass]="{ 'is-invalid': submitted && f['subCategoryName'].errors }" class="form-control form-select"
+						id="subCategoryName" name="subCategoryName" formControlName="subCategoryName">
+							<option>Choose Sub Category</option>
+							<option *ngFor="let subCategory of subCategoryList">{{subCategory.Category}}</option>
+						</select>
+						<div *ngIf="submitted && f['subCategoryName'].errors" class="invalid-feedback">
+							<div *ngIf="f['subCategoryName'].errors['required']">SubCategory Name is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="Brand">Brand</label>
+						<select [ngClass]="{ 'is-invalid': submitted && f['Brand'].errors }" class="form-control form-select"
+						id="Brand" name="Brand" formControlName="Brand">
+							<option>Choose Brand</option>
+							<option *ngFor="let barnd of brandList">{{barnd.BrandName}}</option>
+						</select>
+						<div *ngIf="submitted && f['Brand'].errors" class="invalid-feedback">
+							<div *ngIf="f['Brand'].errors['required']">Brand Name is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="Unit">Unit</label>
+						<select [ngClass]="{ 'is-invalid': submitted && f['Unit'].errors }" class="form-control form-select"
+						id="Unit" name="Unit" formControlName="Unit">
+							<option>Choose Unit</option>
+							<option *ngFor="let unit of unitList">{{unit.name}}</option>
+						</select>
+						<div *ngIf="submitted && f['Unit'].errors" class="invalid-feedback">
+							<div *ngIf="f['Unit'].errors['required']">Unit is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="SKU">SKU</label>
+						<input type="text" formControlName="SKU" id="SKU" class="form-control"
+						[ngClass]="{ 'is-invalid': submitted && f['SKU'].errors }">
+						<div *ngIf="submitted && f['SKU'].errors" class="invalid-feedback">
+							<div *ngIf="f['SKU'].errors['required']">SKU is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="minimumqty">Minimum Qty</label>
+						<input type="text" formControlName="minimumqty" id="minimumqty" class="form-control"
+						[ngClass]="{ 'is-invalid': submitted && f['minimumqty'].errors }">
+						<div *ngIf="submitted && f['minimumqty'].errors" class="invalid-feedback">
+							<div *ngIf="f['minimumqty'].errors['required']">Minimum Qty is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="Qty">Quantity</label>
+						<input type="text" formControlName="Qty" id="Qty" class="form-control"
+						[ngClass]="{ 'is-invalid': submitted && f['Qty'].errors }">
+						<div *ngIf="submitted && f['Qty'].errors" class="invalid-feedback">
+							<div *ngIf="f['Qty'].errors['required']">Quantity is required</div>
+						  </div>
+					</div>
+				</div>
 				<div class="col-lg-12">
-					<a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
+					<div class="form-group">
+						<label for="description">Description</label>
+						<textarea formControlName="description" id="description" class="form-control"
+						[ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+						<div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+							<div *ngIf="f['description'].errors['required']">Description is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="tax">Tax</label>
+						<select [ngClass]="{ 'is-invalid': submitted && f['tax'].errors }" class="form-control form-select"
+						id="tax" name="tax" formControlName="tax">
+							<option>Choose Tax</option>
+							<option *ngFor="let tax of taxList">{{tax.Taxname}}</option>
+						</select>
+						<div *ngIf="submitted && f['tax'].errors" class="invalid-feedback">
+							<div *ngIf="f['tax'].errors['required']">Tax is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="discount">Discount Type</label>
+						<select [ngClass]="{ 'is-invalid': submitted && f['discount'].errors }" class="form-control form-select"
+						id="discount" name="discount" formControlName="discount">
+							<option>Choose Discount</option>
+							<option *ngFor="let dicount of discountList">{{dicount.name}}</option>
+							
+						</select>
+						<div *ngIf="submitted && f['discount'].errors" class="invalid-feedback">
+							<div *ngIf="f['discount'].errors['required']">Discount is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="price">Price</label>
+						<input type="text" formControlName="price" id="price" class="form-control"
+						[ngClass]="{ 'is-invalid': submitted && f['price'].errors }">
+						<div *ngIf="submitted && f['price'].errors" class="invalid-feedback">
+							<div *ngIf="f['price'].errors['required']">Price is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 col-12">
+					<div class="form-group">
+						<label for="status"> Status</label>
+						<select [ngClass]="{ 'is-invalid': submitted && f['status'].errors }" class="form-control form-select"
+						id="status" name="status" formControlName="status">
+							<option>Choose Status</option>
+							<option *ngFor="let status of statusList">{{status.name}}</option>
+						</select>
+						<div *ngIf="submitted && f['status'].errors" class="invalid-feedback">
+							<div *ngIf="f['status'].errors['required']">Status is required</div>
+						  </div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="form-group">
+						<label for="img"> Product Image</label>
+						<div class="image-upload">
+							<input type="file" [ngClass]="{ 'is-invalid': submitted && f['img'].errors }" class="form-control"
+							id="img" name="img" formControlName="img" (change)="onFileSelected($event)">
+							<div class="image-uploads">
+								<img src="assets/img/icons/upload.svg" alt="img">
+								<h4>Drag and drop a file to upload</h4>
+							</div>
+							<div *ngIf="submitted && f['img'].errors" class="invalid-feedback">
+								<div *ngIf="f['img'].errors['required']">product Image is required</div>
+							  </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<a (click)="onSubmit()" href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
 					<a [routerLink]="routes.productList" class="btn btn-cancel">Cancel</a>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
-	<!-- /add -->
+</div>
+<!-- /add -->
