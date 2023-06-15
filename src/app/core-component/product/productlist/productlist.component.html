@@ -56,12 +56,12 @@
       <div class="wordset">
         <ul>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"
+            <a  (click)="openPDF()" data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"
               ><img src="assets/img/icons/pdf.svg" alt="img"
             /></a>
           </li>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"
+            <a  (click)="exportexcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"
               ><img src="assets/img/icons/excel.svg" alt="img"
             /></a>
           </li>
@@ -71,7 +71,7 @@
               target="_blank"
               data-bs-placement="top"
               title="print"
-              ><img src="assets/img/icons/printer.svg" alt="img"
+              ><img (click)= "printTable()" src="assets/img/icons/printer.svg" alt="img"
             /></a>
           </li>
         </ul>
@@ -183,10 +183,10 @@
             </td>
             <td class="productimgname">
               <a href="javascript:void(0);" class="product-img">
-                <img [src]="products.img" alt="product" />
+                <img [src]="products.img"/>
               </a>
               <a href="javascript:void(0);">{{ products.ProductName }}</a>
-            </td>
+            </td>      
             <td>{{ products.SKU }}</td>
             <td>{{ products.Category }}</td>
             <td>{{ products.Brand }}</td>
@@ -195,15 +195,15 @@
             <td>{{ products.Qty }}</td>
             <td>{{ products.CreatedBy }}</td>
             <td>
-              <a class="me-3" [routerLink]="routes.productDetails">
+              <a class="me-3" (click)="onDetail(products)"  [routerLink]="routes.productDetails">
                 <img src="assets/img/icons/eye.svg" alt="img" />
               </a>
-              <a class="me-3" [routerLink]="routes.editProduct">
+              <a class="me-3" (click)="onEdit(products)" [routerLink]="routes.editProduct">
                 <img src="assets/img/icons/edit.svg" alt="img" />
               </a>
 
               <a
-                (click)="deleteBtn()"
+                (click)="deleteProduct(products)"
                 class="confirm-text"
                 href="javascript:void(0);"
               >

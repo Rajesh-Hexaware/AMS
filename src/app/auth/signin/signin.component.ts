@@ -3,7 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { routes } from 'src/app/core/helpers/routes';
 import { DataService } from 'src/app/core/service/data/data.service';
 import { WebstorgeService } from 'src/app/shared/webstorge.service';
-
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
+import { ActivatedRoute, Router } from '@angular/router';
+import { browserRefresh } from '../../app.component';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -13,21 +15,44 @@ export class SigninComponent implements OnInit {
   public routes = routes;
   password: any;
   show = false;
+  user!: SocialUser;
+  loggedIn: any;
   public CustomControler: any;
   form = new FormGroup({
     email: new FormControl('user@dreamguystech.com', [Validators.required]),
     password: new FormControl('12345', [Validators.required]),
   });
-  userData: any=[];
 
+  userData: any=[];
+  accessToken: any;
+  sub: any;
   get f() {
     return this.form.controls;
   }
-
-  constructor(private storage: WebstorgeService,private data :DataService) {}
-
+  constructor(private storage: WebstorgeService, private authService: SocialAuthService, private router: Router,private route: ActivatedRoute) { }
   ngOnInit() {
     this.password = 'password';
+    this.sub = this.route.queryParamMap.subscribe((params:any) => {
+      let param = params.params.page;
+      if(!param || browserRefresh){
+        this.googleSignin();
+      }
+    });    
+         
+  }
+
+  googleSignin(): void {
+    this.authService.authState.subscribe((user:any) => {
+      this.user = user;
+      this.storage.Login(this.user);
+      this.loggedIn = (user != null);
+    });
+  }
+  signInWithGoogle(){
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+  signInWithFB() {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   submit() {
@@ -51,7 +76,9 @@ export class SigninComponent implements OnInit {
       this.form.markAllAsTouched();
     }
   }
-  ngOnDestroy() {}
+  ngOnDestroy() { 
+    this.sub.unsubscribe();
+  }
 
   onClick() {
     if (this.password === 'password') {
@@ -62,4 +89,7 @@ export class SigninComponent implements OnInit {
       this.show = false;
     }
   }
+  signOut(): void {
+    this.authService.signOut();
+  } 
 }

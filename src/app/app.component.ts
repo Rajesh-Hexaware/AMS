@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { SettingsService, SpinnerService } from './core/core.index';
-
+export let browserRefresh = false;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,6 +22,7 @@ export class AppComponent {
       if (event instanceof NavigationStart) {
         let URL = event.url.split('/');
         this.page = URL[1];
+        browserRefresh = !router.navigated;
         this.spinner.show();
       }
       if (event instanceof NavigationEnd) {

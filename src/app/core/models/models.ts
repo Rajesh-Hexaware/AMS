@@ -5,4 +5,5 @@ export interface pageSelection {
 export interface apiResultFormat {
   data: Array<any>;
   totalData: number;
+  length:number;
 }

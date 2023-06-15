@@ -5,6 +5,7 @@ import { WebstorgeService } from 'src/app/shared/webstorge.service';
 import { routes } from 'src/app/core/helpers/routes';
 import * as Feather from 'feather-icons';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -25,7 +26,7 @@ export class HeaderComponent implements OnInit {
     private Router: Router,
     private settings: SettingsService,
     private sidebar: SidebarService,
-    private webStorage: WebstorgeService
+    private webStorage: WebstorgeService,   
   ) {
     this.activePath = this.Router.url.split('/')[2];
     this.Router.events.subscribe((data: any) => {
@@ -60,7 +61,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public logout(): void {
-    this.webStorage.Logout();
+    this.webStorage.Logout();   
   }
 
   public toggleSidebar(): void {

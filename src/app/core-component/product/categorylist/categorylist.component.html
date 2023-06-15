@@ -54,17 +54,17 @@
       <div class="wordset">
         <ul>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"
+            <a (click)="openPDF()" data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"
               ><img src="assets/img/icons/pdf.svg" alt="img"
             /></a>
           </li>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"
+            <a (click)="exportexcel()" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"
               ><img src="assets/img/icons/excel.svg" alt="img"
             /></a>
           </li>
           <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"
+            <a (click)= "printTable()" data-bs-toggle="tooltip" data-bs-placement="top" title="print"
               ><img src="assets/img/icons/printer.svg" alt="img"
             /></a>
           </li>
@@ -124,6 +124,7 @@
         matSortDirection="asc"
         matSortDisableClear
         class="table datanew"
+        id="printTable"
       >
         <thead>
           <tr>
@@ -150,7 +151,7 @@
             </td>
             <td class="productimgname">
               <a href="javascript:void(0);" class="product-img">
-                <img [src]="products.img" alt="product" />
+                <img [src]="products.img" />
               </a>
               <a href="javascript:void(0);">{{ products.Categoryname }}</a>
             </td>
@@ -158,11 +159,11 @@
             <td>{{ products.Description }}</td>
             <td>{{ products.CreatedBy }}</td>
             <td>
-              <a class="me-3" [routerLink]="routes.editCategory">
+              <a class="me-3"  (click)="onEdit(products)"  [routerLink]="routes.editCategory">
                 <img src="assets/img/icons/edit.svg" alt="img" />
               </a>
               <a
-                (click)="deleteBtn()"
+                (click)="deleteCategoryById(products)"
                 class="me-3 confirm-text"
                 href="javascript:void(0);"
               >

@@ -10,7 +10,9 @@ import {
 } from 'src/app/core/core.index';
 import { PaginationService, tablePageSize } from 'src/app/shared/shared.index';
 import { SweetalertService } from 'src/app/shared/sweetalert/sweetalert.service';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-categorylist',
   templateUrl: './categorylist.component.html',
@@ -27,6 +29,7 @@ export class CategorylistComponent implements OnInit {
   showFilter: boolean = false;
   dataSource!: MatTableDataSource<any>;
   public searchDataValue = '';
+  fileName = 'AMS-Category.xlsx';
   //** / pagination variables
 
   constructor(
@@ -47,14 +50,14 @@ export class CategorylistComponent implements OnInit {
     this.sweetalert.deleteBtn();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   private getTableData(pageOption: pageSelection): void {
-    this.data.getCategoryList().subscribe((apiRes: apiResultFormat) => {
+    this.data.getCategoryList().subscribe((apiRes: any) => {
       this.tableData = [];
       this.serialNumberArray = [];
       this.totalData = apiRes.totalData;
-      apiRes.data.map((res: any, index: number) => {
+      apiRes.map((res: any, index: number) => {
         let serialNumber = index + 1;
         if (index >= pageOption.skip && serialNumber <= pageOption.limit) {
           res.sNo = serialNumber;
@@ -101,5 +104,51 @@ export class CategorylistComponent implements OnInit {
         f.isSelected = false;
       });
     }
+  }
+  printTable(): void {
+    window.print();
+    //  this.divToPrint = document.getElementById("printTable");  
+    //   this.newWin = window.open("");  
+    //   this.newWin.document.write(this.divToPrint.outerHTML);  
+    //   this.newWin.window.print();  
+
+  }
+  public openPDF(): void {
+    let DATA: any = document.getElementById('printTable');
+    html2canvas(DATA).then((canvas) => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('AMS-Category.pdf');
+    });
+  }
+  exportexcel(): void {
+    /* table id is passed over here */
+    let element = document.getElementById('printTable');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+
+  }
+
+  deleteCategoryById(row: any) {
+
+    this.data.deleteCategoryList(row.id).subscribe(res => {
+      // alert("Record Deleted Succesfully");
+      this.sweetalert.deleteBtn();
+      this.router.navigate([this.routes.categoryList]);
+    });
+  }
+
+  onEdit(row: any) {
+    this.router.navigate([this.routes.editCategory], { queryParams: { id: row.id } });
   }
 }
