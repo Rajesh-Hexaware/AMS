@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   public logoPath: string = '';
   public miniSidebar: boolean = false;
   elem=document.documentElement
+  userName: any;
 
   constructor(
     private Router: Router,
@@ -55,6 +56,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     Feather.replace();
+    this.userName = localStorage.getItem("Username")
   }
 
   public logout(): void {

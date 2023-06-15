@@ -14,6 +14,7 @@ export class WebstorgeService {
    */
   public Login(uservalue: any): void {
     localStorage.setItem('authorized', uservalue);
+    localStorage.setItem('Username', uservalue.Username);
     localStorage.setItem('loginTime', Date());
     this.router.navigate(['/dashboard']);
   }

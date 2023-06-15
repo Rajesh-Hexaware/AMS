@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { routes } from 'src/app/core/helpers/routes';
+import { DataService } from 'src/app/core/service/data/data.service';
 import { WebstorgeService } from 'src/app/shared/webstorge.service';
 
 @Component({
@@ -17,12 +18,13 @@ export class SigninComponent implements OnInit {
     email: new FormControl('user@dreamguystech.com', [Validators.required]),
     password: new FormControl('12345', [Validators.required]),
   });
+  userData: any=[];
 
   get f() {
     return this.form.controls;
   }
 
-  constructor(private storage: WebstorgeService) {}
+  constructor(private storage: WebstorgeService,private data :DataService) {}
 
   ngOnInit() {
     this.password = 'password';
@@ -30,7 +32,21 @@ export class SigninComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      this.storage.Login(this.form.value);
+      this.data.getUserList().subscribe(res=>{
+       this.userData = res
+        var target= this.userData.filter((temp:any)=>{ return (temp.email == this.form.value.email)})
+        if(target.length>0){
+          if(target[0].Password==this.form.value.password){
+            this.storage.Login(target[0]);
+          }
+          else{
+            alert("Please check the password") 
+          }
+        }
+        else{
+         alert("User Doesn't exists")
+        }
+      })
     } else {
       this.form.markAllAsTouched();
     }

@@ -52,7 +52,15 @@ export class DataService {
   }
 
   public getUserList(): Observable<any> {
-    return this.http.get('assets/JSON/userList.json').pipe(
+    return this.http.get('https://ams-json.onrender.com/userList').pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  public postUser(data:any): Observable<any> {
+    return this.http.post('https://ams-json.onrender.com/userList',data).pipe(
       map((res: any) => {
         return res;
       })
