@@ -6,6 +6,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
+  apiKey: string = "c325b83880f66fd5659226a788f5959f";
   constructor(private http: HttpClient) {}
 
   public getCountryList(): Observable<any> {
@@ -67,32 +68,150 @@ export class DataService {
     );
   }
   public getProductList(): Observable<any> {
-    return this.http.get('assets/JSON/productList.json').pipe(
+    return this.http.get("https://ams-json.onrender.com/productList").pipe(
       map((res: any) => {
         return res;
       })
     );
+  }
+  public getProductListById(id:any): Observable<any> {
+    return this.http.get("https://ams-json.onrender.com/productList/" + id).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  public postProductData(data: any): Observable<any> {
+    return this.http.post("https://ams-json.onrender.com/productList",data).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  public updateProductData(data: any, id: number) {    
+    return this.http.put("https://ams-json.onrender.com/productList/" + id, data).pipe(map((res: any) => {
+      return res;
+    }))
+  }
+  public deleteProductData(id: number) {
+    return this.http.delete<any>("https://ams-json.onrender.com/productList/" + id).pipe(map((res: any) => {
+      return res;
+    }))
+  }
+
+  public upload(file: any) {
+    const formData = new FormData();
+    formData.append('image', file)
+    return this.http.post<any>('https://api.imgbb.com/1/upload', formData, { params: { key: this.apiKey } }).pipe(map((res: any) => {
+      return res;
+    }));
   }
   public getCategoryList(): Observable<any> {
-    return this.http.get('assets/JSON/categoryList.json').pipe(
+    return this.http.get("https://ams-json.onrender.com/categoryList").pipe(
       map((res: any) => {
         return res;
       })
     );
+  }
+  public postCategoryList(data: any): Observable<any> {
+    return this.http.post("https://ams-json.onrender.com/categoryList",data).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  public getCategoryListById(id:any): Observable<any> {
+    return this.http.get("https://ams-json.onrender.com/categoryList/" + id).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  public updateCategoryList(data: any, id: number) {    
+    return this.http.put("https://ams-json.onrender.com/categoryList/" + id, data).pipe(map((res: any) => {
+      return res;
+    }))
+  }
+  public deleteCategoryList(id: number) {
+    return this.http.delete<any>("https://ams-json.onrender.com/categoryList/" + id).pipe(map((res: any) => {
+      return res;
+    }))
+  }
+  public uploadCategory(file: any) {
+    const formData = new FormData();
+    formData.append('image', file)
+    return this.http.post<any>('https://api.imgbb.com/1/upload', formData, { params: { key: this.apiKey } }).pipe(map((res: any) => {
+      return res;
+    }));
   }
   public getSubcategoryList(): Observable<any> {
-    return this.http.get('assets/JSON/subcategoryList.json').pipe(
+    return this.http.get("https://ams-json.onrender.com/subCategoryList").pipe(
       map((res: any) => {
         return res;
       })
     );
   }
-  public getBrandList(): Observable<any> {
-    return this.http.get('assets/JSON/brandList.json').pipe(
+  public postSubcategoryList(data: any): Observable<any> {
+    return this.http.post("https://ams-json.onrender.com/subCategoryList",data).pipe(
       map((res: any) => {
         return res;
       })
     );
+  }
+  public getSubcategoryListtById(id:any): Observable<any> {
+    return this.http.get("https://ams-json.onrender.com/subCategoryList/" + id).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  public updateSubcategoryList(data: any, id: number) {    
+    return this.http.put("https://ams-json.onrender.com/subCategoryList/" + id, data).pipe(map((res: any) => {
+      return res;
+    }))
+  }
+  public deleteSubcategoryList(id: number) {
+    return this.http.delete<any>("https://ams-json.onrender.com/subCategoryList/" + id).pipe(map((res: any) => {
+      return res;
+    }))
+  }
+  public getBrandList(): Observable<any> {
+    return this.http.get("https://ams-json.onrender.com/brandList").pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  public postBrandList(data: any): Observable<any> {
+    return this.http.post("https://ams-json.onrender.com/brandList",data).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  public getBrandListById(id:any): Observable<any> {
+    return this.http.get("https://ams-json.onrender.com/brandList/" + id).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  public updateBrandList(data: any, id: number) {    
+    return this.http.put("https://ams-json.onrender.com/brandList/" + id, data).pipe(map((res: any) => {
+      return res;
+    }))
+  }
+  public deleteBrandList(id: number) {
+    return this.http.delete<any>("https://ams-json.onrender.com/brandList/" + id).pipe(map((res: any) => {
+      return res;
+    }))
+  }
+  public uploadBrand(file: any) {
+    const formData = new FormData();
+    formData.append('image', file)
+    return this.http.post<any>('https://api.imgbb.com/1/upload', formData, { params: { key: this.apiKey } }).pipe(map((res: any) => {
+      return res;
+    }));
   }
   public getSalesList(): Observable<any> {
     return this.http.get('assets/JSON/salesList.json').pipe(
@@ -214,7 +333,7 @@ export class DataService {
     );
   }
   public getTaxRates(): Observable<any> {
-    return this.http.get('assets/JSON/taxRates.json').pipe(
+    return this.http.get("https://ams-json.onrender.com/taxRates").pipe(
       map((res: any) => {
         return res;
       })

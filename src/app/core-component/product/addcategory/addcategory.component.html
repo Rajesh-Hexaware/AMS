@@ -8,44 +8,65 @@
         <!-- /add -->
         <div class="card">
             <div class="card-body">
+                <form [formGroup]="categoryformValue">
                 <div class="row">
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Category Name</label>
-                            <input type="text" >
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Category Code</label>
-                            <input type="text" >
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label>	Product Image</label>
-                            <div class="image-upload">
-                                <input type="file">
-                                <div class="image-uploads">
-                                    <img src="assets/img/icons/upload.svg" alt="img">
-                                    <h4>Drag and drop a file to upload</h4>
+                            <label for="Categoryname">Category Name</label>
+                            <input type="text"[ngClass]="{ 'is-invalid': submitted && f['Categoryname'].errors }" class="form-control"
+                            id="Categoryname" name="Categoryname" formControlName="Categoryname">
+                            <div *ngIf="submitted && f['Categoryname'].errors" class="invalid-feedback">
+                                <div *ngIf="f['Categoryname'].errors['required']">Categoryname is required</div>
+                                <div *ngIf="f['Categoryname'].errors['minlength']">
+                                    studentName must be at least 4 characters
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="CategoryCode">Category Code</label>
+                            <input type="text"[ngClass]="{ 'is-invalid': submitted && f['CategoryCode'].errors }" class="form-control"
+                            id="CategoryCode" name="CategoryCode" formControlName="CategoryCode">
+                            <div *ngIf="submitted && f['CategoryCode'].errors" class="invalid-feedback">
+                                <div *ngIf="f['CategoryCode'].errors['required']">CategoryCode is required</div>                            
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-lg-12">
-                        <a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <textarea formControlName="Description" id="Description" class="form-control"
+						[ngClass]="{ 'is-invalid': submitted && f['Description'].errors }"></textarea>
+						<div *ngIf="submitted && f['Description'].errors" class="invalid-feedback">
+							<div *ngIf="f['Description'].errors['required']">Description is required</div>
+						  </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="img">Product Image</label>
+                            <div class="image-upload">
+                                <input type="file" [ngClass]="{ 'is-invalid': submitted && f['img'].errors }" class="form-control"
+                                id="img" name="img" formControlName="img" (change)="onFileSelected($event)">
+                                <div class="image-uploads">
+                                    <img src="assets/img/icons/upload.svg" alt="img">
+                                    <h4>Drag and drop a file to upload</h4>
+                                </div>
+                                <div *ngIf="submitted && f['img'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['img'].errors['required']">product Image is required</div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <a (click)="onSubmit()" href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
                         <a [routerLink]="routes.categoryList" class="btn btn-cancel">Cancel</a>
                     </div>
                 </div>
+            </form>
             </div>
         </div>
         <!-- /add -->

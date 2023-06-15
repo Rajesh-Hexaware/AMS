@@ -94,17 +94,19 @@
         </div>
         <div class="form-sociallink">
           <ul>
-            <li>
+            <li>            
               <a href="javascript:void(0);">
-                <img
+                <asl-google-signin-button type='icon' alt="google" size='medium' class="me-2"  (click)="googleSignin()"></asl-google-signin-button>
+                <!-- <img
                   src="assets/img/icons/google.png"
                   class="me-2"
                   alt="google"
-                />
+                /> -->
                 Sign Up using Google
               </a>
             </li>
             <li>
+              <!-- <button (click)="signInWithFB()">Sign Up using Facebook</button> -->
               <a href="javascript:void(0);">
                 <img
                   src="assets/img/icons/facebook.png"

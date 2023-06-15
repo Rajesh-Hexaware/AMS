@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AddbrandRoutingModule } from './addbrand-routing.module';
 import { AddbrandComponent } from './addbrand.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { AddbrandComponent } from './addbrand.component';
   ],
   imports: [
     CommonModule,
-    AddbrandRoutingModule
+    AddbrandRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AddbrandModule { }

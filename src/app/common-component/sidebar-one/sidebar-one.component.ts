@@ -43,6 +43,7 @@ export class SidebarOneComponent implements OnInit {
 
   public expandSubMenus(menu: any): void {
     sessionStorage.setItem('menuValue', menu.menuValue);
+    console.log("this.side_bar_data_one",this.side_bar_data_one)
     this.side_bar_data_one.map((mainMenus: any) => {
       mainMenus.menu.map((resMenu: any) => {
         // collapse other submenus which are open

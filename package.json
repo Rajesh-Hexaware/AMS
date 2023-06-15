@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@abacritt/angularx-social-login": "^1.2.4-ngx12.0",
     "@angular-slider/ngx-slider": "^2.0.4",
     "@angular/animations": "^15.0.0",
     "@angular/cdk": "^15.0.0",
@@ -36,12 +37,16 @@
     "bootstrap": "^5.2.0",
     "chart.js": "^3.6.0",
     "feather-icons": "^4.29.0",
+    "file-saver": "^2.0.5",
+    "jsbarcode": "^3.11.5",
+    "jspdf": "^2.5.1",
     "ng-apexcharts": "^1.7.1",
     "ng-chartjs": "^0.2.5",
     "ng-count-up-js": "^1.0.8",
     "ng-datepicker": "^1.0.2",
     "ng2-charts": "^4.1.1",
     "ng2-datepicker": "^12.0.0",
+    "ngx-barcode6": "^1.0.10",
     "ngx-bootstrap": "^6.2.0",
     "ngx-editor": "^15.1.0",
     "ngx-lightbox": "^3.0.0",
@@ -53,6 +58,7 @@
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.7.1",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {

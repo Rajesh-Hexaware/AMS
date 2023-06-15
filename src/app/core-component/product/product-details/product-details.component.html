@@ -9,9 +9,11 @@
   <div class="col-lg-8 col-sm-12">
     <div class="card">
       <div class="card-body">
-        <div class="bar-code-view">
-          <img src="assets/img/barcode1.png" alt="barcode" />
-          <a class="printimg">
+        <div class="bar-code-view">          
+          <ngx-barcode6 [bc-format]="'CODE128'" [bc-value]="productName" [bc-display-value]="true">
+          </ngx-barcode6>
+          <!-- <img src="assets/img/barcode1.png" alt="barcode" /> -->
+          <a (click)="printTable()" class="printimg">
             <img src="assets/img/icons/printer.svg" alt="print" />
           </a>
         </div>
@@ -19,59 +21,55 @@
           <ul class="product-bar">
             <li>
               <h4>Product</h4>
-              <h6>Macbook pro</h6>
+              <h6>{{productName}}</h6>
             </li>
             <li>
               <h4>Category</h4>
-              <h6>Computers</h6>
+              <h6>{{categoryName}}</h6>
             </li>
             <li>
               <h4>Sub Category</h4>
-              <h6>None</h6>
+              <h6>{{subCategoryName}}</h6>
             </li>
             <li>
               <h4>Brand</h4>
-              <h6>None</h6>
+              <h6>{{brandName}}</h6>
             </li>
             <li>
               <h4>Unit</h4>
-              <h6>Piece</h6>
+              <h6>{{unit}}</h6>
             </li>
             <li>
               <h4>SKU</h4>
-              <h6>PT0001</h6>
+              <h6>{{sku}}</h6>
             </li>
             <li>
               <h4>Minimum Qty</h4>
-              <h6>5</h6>
+              <h6>{{minimumqty}}</h6>
             </li>
             <li>
               <h4>Quantity</h4>
-              <h6>50</h6>
+              <h6>{{quantity}}</h6>
             </li>
             <li>
               <h4>Tax</h4>
-              <h6>0.00 %</h6>
+              <h6>{{tax}}</h6>
             </li>
             <li>
               <h4>Discount Type</h4>
-              <h6>Percentage</h6>
+              <h6>{{discount}}</h6>
             </li>
             <li>
               <h4>Price</h4>
-              <h6>1500.00</h6>
+              <h6>{{price}}</h6>
             </li>
             <li>
               <h4>Status</h4>
-              <h6>Active</h6>
+              <h6>{{status}}</h6>
             </li>
             <li>
               <h4>Description</h4>
-              <h6>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
-              </h6>
+              <h6>{{description}}</h6>
             </li>
           </ul>
         </div>

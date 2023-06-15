@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -10,13 +10,16 @@ import {
 } from 'src/app/core/core.index';
 import { PaginationService, tablePageSize } from 'src/app/shared/shared.index';
 import { SweetalertService } from 'src/app/shared/sweetalert/sweetalert.service';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx'; 
 @Component({
   selector: 'app-subcategorylist',
   templateUrl: './subcategorylist.component.html',
   styleUrls: ['./subcategorylist.component.scss'],
 })
 export class SubcategorylistComponent implements OnInit {
+  @ViewChild('printTable') htmlData!: ElementRef;
   initChecked: boolean = false;
   public tableData: Array<any> = [];
   public routes = routes;
@@ -27,6 +30,7 @@ export class SubcategorylistComponent implements OnInit {
   showFilter: boolean = false;
   dataSource!: MatTableDataSource<any>;
   public searchDataValue = '';
+  fileName= 'AMS-SubCategory.xlsx'; 
   //** / pagination variables
   constructor(
     private data: DataService,
@@ -48,11 +52,11 @@ export class SubcategorylistComponent implements OnInit {
   ngOnInit(): void {}
 
   private getTableData(pageOption: pageSelection): void {
-    this.data.getSubcategoryList().subscribe((apiRes: apiResultFormat) => {
+    this.data.getSubcategoryList().subscribe((apiRes: any) => {
       this.tableData = [];
       this.serialNumberArray = [];
       this.totalData = apiRes.totalData;
-      apiRes.data.map((res: any, index: number) => {
+      apiRes.map((res: any, index: number) => {
         let serialNumber = index + 1;
         if (index >= pageOption.skip && serialNumber <= pageOption.limit) {
           res.sNo = serialNumber;
@@ -99,5 +103,54 @@ export class SubcategorylistComponent implements OnInit {
         f.isSelected = false;
       });
     }
+  }
+  printTable(): void {
+    window.print();
+    //  this.divToPrint = document.getElementById("printTable");  
+    //   this.newWin = window.open("");  
+    //   this.newWin.document.write(this.divToPrint.outerHTML);  
+    //   this.newWin.window.print();  
+
+  }
+  public openPDF(): void {
+    let DATA: any = document.getElementById('printTable');
+    html2canvas(DATA).then((canvas) => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('AMS-SubCategory.pdf');
+    });
+  }
+  exportexcel(): void 
+  {
+     /* table id is passed over here */   
+     let element = document.getElementById('printTable'); 
+     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+     /* generate workbook and add the worksheet */
+     const wb: XLSX.WorkBook = XLSX.utils.book_new();
+     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+     /* save to file */
+     XLSX.writeFile(wb, this.fileName);
+    
+  }
+
+  deleteProduct(row: any) {
+
+    this.data.deleteProductData(row.id).subscribe(res => {
+      // alert("Record Deleted Succesfully");
+      this.sweetalert.deleteBtn();
+      this.router.navigate([this.routes.productList]);
+      
+    })
+
+  }
+  onEdit(row: any) {
+    this.router.navigate([this.routes.editSubCategory], { queryParams: { id: row.id } });
+    // this.router.navigate(['/auth/signin'], { queryParams: { page: 1 } });
   }
 }
