@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl,FormBuilder, FormGroup, Validators } from '@angular/forms';
-import ShortUniqueId from 'short-unique-id';
+// import ShortUniqueId from 'short-unique-id';
 import { routes } from 'src/app/core/helpers/routes';
 import { DataService } from 'src/app/core/service/data/data.service';
 import { signupModel } from "./signup.model";
+import { SweetalertService } from 'src/app/shared/sweetalert/sweetalert.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -17,7 +18,7 @@ export class SignupComponent implements OnInit {
   show = false;
   public CustomControler: any;
   
-  constructor(private fb: FormBuilder,private data :DataService){
+  constructor(private fb: FormBuilder,private sweetlalert: SweetalertService,private data :DataService){
     this.sinupForm = this.fb.group({
       name: [''],
       email: ['',  [Validators.required,Validators.email]],
@@ -45,9 +46,9 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
     if(this.sinupForm.valid){
-      const uid = new ShortUniqueId({ length: 10 })
-      this.submitted = true;
+    // const uid = new ShortUniqueId({ length: 10 })
       const date = new Date();
       let signupData:signupModel = new signupModel() ;
       signupData.Username=this.sinupForm.value.name
@@ -63,7 +64,7 @@ export class SignupComponent implements OnInit {
         signupData.id = 1;  
       }
       this.data.postUser(signupData).subscribe((res:any)=>{
-        alert("User created successfully");
+        this.sweetlalert.successBtn();
       })
     }
     else {

@@ -6,6 +6,7 @@ import { WebstorgeService } from 'src/app/shared/webstorge.service';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
 import { ActivatedRoute, Router } from '@angular/router';
 import { browserRefresh } from '../../app.component';
+import { SweetalertService } from 'src/app/shared/sweetalert/sweetalert.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -29,7 +30,7 @@ export class SigninComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
-  constructor(private storage: WebstorgeService, private authService: SocialAuthService, private router: Router,private route: ActivatedRoute) { }
+  constructor(private storage: WebstorgeService,private data: DataService,private sweetlalert: SweetalertService,  private authService: SocialAuthService, private router: Router,private route: ActivatedRoute) { }
   ngOnInit() {
     this.password = 'password';
     this.sub = this.route.queryParamMap.subscribe((params:any) => {
@@ -65,11 +66,11 @@ export class SigninComponent implements OnInit {
             this.storage.Login(target[0]);
           }
           else{
-            alert("Please check the password") 
+            this.sweetlalert.signinerrorBtn("Please check the password");
           }
         }
         else{
-         alert("User Doesn't exists")
+          this.sweetlalert.signinerrorBtn("User Doesn't exists");
         }
       })
     } else {

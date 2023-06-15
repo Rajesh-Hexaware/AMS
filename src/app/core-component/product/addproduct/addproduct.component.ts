@@ -91,9 +91,9 @@ export class AddproductComponent implements OnInit {
     this.addProductModelObj.img = this.convertedImg;
     this.addProductModelObj.id = this.productformValue.value.id;
     if (!this.addProductModelObj.id) {
-      this.addProductModelObj.id = 0;
-    }else{
       this.addProductModelObj.id = 1;
+    }else{
+      this.addProductModelObj.id = 0;
     }
     
     let cancel = document.getElementById("cancel");
