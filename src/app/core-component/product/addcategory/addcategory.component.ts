@@ -47,7 +47,7 @@ export class AddcategoryComponent implements OnInit {
     this.addCategoryModelObj.img = this.convertedImg;
     this.addCategoryModelObj.id = this.categoryformValue.value.id;
     if (!this.addCategoryModelObj.id) {
-      this.addCategoryModelObj.id = 1;
+      this.addCategoryModelObj.id = new Date().getTime();
     }
     let cancel = document.getElementById("cancel");
     this.data.postCategoryList(this.addCategoryModelObj).subscribe(a => {

@@ -129,7 +129,7 @@
             <td>{{ products.Category }}</td>
             <td>{{ products.Parentcategory }}</td>
             <td>{{ products.CategoryCode }}</td>
-            <td>{{ products.Description }}</td>
+            <td>{{ products.Description | slice:0:10}}...</td>
             <td>{{ products.CreatedBy }}</td>
             <td>
               <a (click)="onEdit(products)" class="me-3" [routerLink]="routes.editSubCategory">

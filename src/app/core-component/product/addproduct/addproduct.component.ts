@@ -91,9 +91,8 @@ export class AddproductComponent implements OnInit {
     this.addProductModelObj.img = this.convertedImg;
     this.addProductModelObj.id = this.productformValue.value.id;
     if (!this.addProductModelObj.id) {
-      this.addProductModelObj.id = 1;
-    }else{
-      this.addProductModelObj.id = 0;
+      // Generate a unique timestamp-based ID
+      this.addProductModelObj.id = new Date().getTime();
     }
     
     let cancel = document.getElementById("cancel");

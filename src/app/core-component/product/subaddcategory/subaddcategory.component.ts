@@ -41,7 +41,7 @@ export class SubaddcategoryComponent implements OnInit {
     this.subAddCategoryModelObj.Description = this.categoryformValue.value.Description;      
     this.subAddCategoryModelObj.id = this.categoryformValue.value.id;
     if (!this.subAddCategoryModelObj.id) {
-      this.subAddCategoryModelObj.id = 1;
+      this.subAddCategoryModelObj.id = new Date().getTime();
     }
     let cancel = document.getElementById("cancel");
     this.data.postSubcategoryList(this.subAddCategoryModelObj).subscribe(a => {

@@ -45,7 +45,7 @@ export class AddbrandComponent implements OnInit {
     this.addBrandModelObj.Image = this.convertedImg;
     this.addBrandModelObj.id = this.brandformValue.value.id;
     if (!this.addBrandModelObj.id) {
-      this.addBrandModelObj.id = 1;
+      this.addBrandModelObj.id = new Date().getTime();
     }
     let cancel = document.getElementById("cancel");
     this.data.postBrandList(this.addBrandModelObj).subscribe(a => {

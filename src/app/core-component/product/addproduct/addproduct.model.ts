@@ -1,5 +1,5 @@
 export class AddProductModel {
-    id: number = 0;
+    id: number=0;
     ProductName: string = "";
     Category:  string = "";
     subCategoryName: string = "";

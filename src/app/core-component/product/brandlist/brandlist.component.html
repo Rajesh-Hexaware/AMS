@@ -138,7 +138,7 @@ src="assets/img/icons/filter.svg"
               </a>
             </td>
             <td>{{ products.BrandName }}</td>
-            <td>{{ products.BrandDescription }}</td>
+            <td>{{ products.BrandDescription | slice:0:10}}...</td>
             <td>
               <a class="me-3" (click)="onEdit(products)" [routerLink]="routes.editBrand">
                 <img src="assets/img/icons/edit.svg" alt="img" />

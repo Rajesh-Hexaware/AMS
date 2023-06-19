@@ -156,7 +156,7 @@
               <a href="javascript:void(0);">{{ products.Categoryname }}</a>
             </td>
             <td>{{ products.CategoryCode }}</td>
-            <td>{{ products.Description }}</td>
+            <td>{{ products.Description | slice:0:10}}...</td>
             <td>{{ products.CreatedBy }}</td>
             <td>
               <a class="me-3"  (click)="onEdit(products)"  [routerLink]="routes.editCategory">

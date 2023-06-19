@@ -171,6 +171,7 @@
 							<input type="file" [ngClass]="{ 'is-invalid': submitted && f['img'].errors }" class="form-control"
 							id="img" name="img" formControlName="img" (change)="onFileSelected($event)">
 							<div class="image-uploads">
+								<!-- <img *ngIf="productImage" [src]="convertedImg" alt="img"> -->
 								<img src="assets/img/icons/upload.svg" alt="img">
 								<h4>Drag and drop a file to upload</h4>
 							</div>
