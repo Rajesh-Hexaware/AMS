@@ -18,11 +18,15 @@
             <div class="form-addons">
               <input
                 type="text"
+                [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
                 placeholder="Enter your full name"
                 formControlName="name"
               />
               <img src="assets/img/icons/users1.svg" alt="img" />
             </div>
+            <div *ngIf="submitted && f['name'].errors">
+              <div *ngIf="f['name'].errors['required']" class="text-danger ">Full Name is required.</div>
+          </div>
           </div>
           <div class="form-login">
             <label>Email</label>
@@ -32,12 +36,13 @@
                 placeholder="Enter your email address"
                 id="email"
                 formControlName="email"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
               />
               <img src="assets/img/icons/mail.svg" alt="img" />
             </div>
             <div *ngIf="submitted && f['email'].errors">
-              <div *ngIf="f['email'].errors['required']" class="text-danger is-invalid">Email is required.</div>
-              <div *ngIf="f['email'].errors['email']" class="text-danger is-invalid">Please enter a valid Email address.</div>
+              <div *ngIf="f['email'].errors['required']" class="text-danger ">Email is required.</div>
+              <div *ngIf="f['email'].errors['email']" class="text-danger ">Please enter a valid Email address.</div>
           </div>
             <div *ngIf="CustomControler != 0" class="invalid-feedback">
               {{ CustomControler }}
@@ -48,6 +53,7 @@
             <div class="pass-group">
               <input
                 [type]="password"
+                [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
                 class="pass-input"
                 placeholder="Enter your password"
                 formControlName="password"
@@ -65,7 +71,7 @@
               ></span>
             </div>
             <div *ngIf="submitted && f['password'].errors">
-              <div *ngIf="f['password'].errors['required']" class="text-danger is-invalid">Password is required.</div>            
+              <div *ngIf="f['password'].errors['required']" class="text-danger">Password is required.</div>            
 
           </div>
           </div>
