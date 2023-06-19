@@ -27,6 +27,7 @@ export class SigninComponent implements OnInit {
   userData: any=[];
   accessToken: any;
   sub: any;
+  submitted: boolean=false;
   get f() {
     return this.form.controls;
   }
@@ -57,6 +58,7 @@ export class SigninComponent implements OnInit {
   }
 
   submit() {
+   this.submitted =true
     if (this.form.valid) {
       this.data.getUserList().subscribe(res=>{
        this.userData = res

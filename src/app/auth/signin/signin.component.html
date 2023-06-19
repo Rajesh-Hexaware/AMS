@@ -19,6 +19,7 @@
               <input
                 type="text"
                 placeholder="Enter your email address"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
                 formControlName="email"
                 id="email"
                 [ngClass]="{
@@ -27,29 +28,16 @@
               />
               <img src="assets/img/icons/mail.svg" alt="img" />
             </div>
-            <div
-              class="invalid-feedback"
-              *ngIf="CustomControler?.status === 'email'"
-            >
-              {{ CustomControler.message }}
-            </div>
-            <div
-              *ngIf="f['email'].touched && f['email'].invalid"
-              class="invalid-feedback"
-            >
-              <div *ngIf="f['email'].errors && f['email'].errors['required']">
-                Email is required.
-              </div>
-              <div *ngIf="f['email'].errors && f['email'].errors['email']">
-                Please, enter valid email address.
-              </div>
-            </div>
+            <div *ngIf="submitted && f['email'].errors">
+              <div *ngIf="f['email'].errors['required']" class="text-danger ">Email is required.</div>
+          </div>
           </div>
           <div class="form-login">
             <label>Password</label>
             <div class="pass-group">
               <input
                 [type]="password"
+                [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
                 class="pass-input"
                 placeholder="Enter your password"
                 formControlName="password"
@@ -69,6 +57,9 @@
                 *ngIf="!show"
               ></span>
             </div>
+            <div *ngIf="submitted && f['password'].errors">
+              <div *ngIf="f['password'].errors['required']" class="text-danger ">Password is required.</div>
+          </div>
           </div>
         </form>
         <div class="form-login">

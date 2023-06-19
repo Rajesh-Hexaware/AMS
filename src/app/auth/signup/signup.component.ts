@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
   
   constructor(private fb: FormBuilder,private sweetlalert: SweetalertService,private data :DataService){
     this.sinupForm = this.fb.group({
-      name: [''],
+      name: ['',Validators.required],
       email: ['',  [Validators.required,Validators.email]],
       password: ['', Validators.required]
     });
@@ -59,10 +59,7 @@ export class SignupComponent implements OnInit {
       signupData.Role="Admin"
       signupData.CreatedOn=date.toLocaleDateString()
       signupData.Status="Active"
-      signupData.id=this.sinupForm.value.id
-      if (!signupData.id) {
-        signupData.id = 1;  
-      }
+      signupData.id=new Date().getTime();
       this.data.postUser(signupData).subscribe((res:any)=>{
         this.sweetlalert.successBtn();
       })
