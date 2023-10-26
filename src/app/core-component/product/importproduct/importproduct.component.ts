@@ -18,6 +18,7 @@ export class ImportproductComponent implements OnInit {
   jsonData:any;
   importformValue!: FormGroup;
   submitted = false;
+  id:any
   constructor(private http: HttpClient,private router: Router, private route: ActivatedRoute, private sweetlalert: SweetalertService, private formBuilder: FormBuilder, private data: DataService,) {
     this.importformValue = this.formBuilder.group({   
       file: ['', Validators.required],
@@ -40,7 +41,7 @@ export class ImportproductComponent implements OnInit {
         downloadLink.click();
       });
   }
-  onFileChange(event: any): void {    
+  onFileChange(event: any): void {        
     const file = event.target.files[0];
     const fileReader = new FileReader();
 
@@ -59,50 +60,51 @@ export class ImportproductComponent implements OnInit {
     fileReader.readAsArrayBuffer(file);
   }
 
-  importData(data: any[][]): void {      
+  importData(data: any[][]): void {         
     const products = []; 
     // Assuming the data starts from the second row (index 1)
-    for (let i = 1; i < data.length; i++) {     
-      const productName = data[i][0];
-      const categoryName = data[i][1];
+    for (let i = 1; i < data.length; i++) {           
+      const ProductName = data[i][0];
+      const Category = data[i][1];
       const subCategoryName = data[i][2];
-      const brandName = data[i][3];
-      const unit = data[i][4];
-      const sku = data[i][5];  
+      const Brand = data[i][3];
+      const Unit = data[i][4];
+      const SKU = data[i][5];  
       const minimumqty = data[i][6];  
-      const quantity = data[i][7]; 
+      const Qty = data[i][7]; 
       const description = data[i][8]; 
       const tax = data[i][9]; 
       const discount = data[i][10]; 
       const price = data[i][11]; 
       const status = data[i][12]; 
-      const productImage = data[i][13]; 
-       this.product = {      
-        productName,
-        categoryName,
+      const img = data[i][13]; 
+       this.product = {   
+        id : new Date().getTime(), 
+        ProductName,
+        Category,
         subCategoryName,
-        brandName,
-        unit,
-        sku,
+        Brand,
+        Unit,
+        SKU,
         minimumqty,
-        quantity,
+        Qty,
         description,
         tax,
         discount,
         price,
         status,
-        productImage     
+        img     
       };  
       products.push(this.product);
     }
     // Send the data to the web API    
   }
-  onSubmit(){
+  onSubmit(){    
     this.submitted = true;
     if (this.importformValue.invalid) {
       return;
     }
-    this.data.postProductData(this.product).subscribe((response: any) => {      
+    this.data.postProductData(this.product).subscribe((response: any) => {         
       this.sweetlalert.successBtn();      
       this.router.navigate([this.routes.productList]);     
     });
