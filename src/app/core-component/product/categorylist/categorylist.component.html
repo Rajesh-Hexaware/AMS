@@ -16,7 +16,7 @@
       <div class="search-set">
         <div class="search-path">
           <a
-            (click)="showFilter = !showFilter"
+            
             [class.setclose]="showFilter == true"
             class="btn btn-filter"
             id="filter_search"
@@ -158,7 +158,7 @@
             <td>{{ products.CategoryCode }}</td>
             <td>{{ products.Description | slice:0:10}}...</td>
             <td>{{ products.CreatedBy }}</td>
-            <td>
+            <td id="hide">
               <a class="me-3"  (click)="onEdit(products)"  [routerLink]="routes.editCategory">
                 <img src="assets/img/icons/edit.svg" alt="img" />
               </a>

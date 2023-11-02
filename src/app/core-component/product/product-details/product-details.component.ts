@@ -51,30 +51,38 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.sub = this.route.queryParamMap.subscribe((params: any) => {
-      let param = params.params.id;
+      let param = params.params.Id;
       this.getProductDetailsById(param);
     });
   }
-  getProductDetailsById(id: any) {
-    this.data.getProductListById(id).subscribe(res => {   
-      this.productDetails = res;
-      this.brandName = res.Brand;
-      this.categoryName = res.Category;
-      this.description = res.description;
-      this.discount = res.discount;
-      this.minimumqty = res.minimumqty;
-      this.price = res.price;
-      this.productImage = res.img;
-      this.productName = res.ProductName;
-      this.quantity = res.Qty;
-      this.sku = res.SKU;
-      this.status = res.status;
-      this.subCategoryName = res.subCategoryName;
-      this.tax = res.tax;
-      this.unit = res.Unit;
+  getProductDetailsById(Id: any) {
+    this.data.getProductListById(Id).subscribe(res => {              
+      this.productDetails = res[0];
+      this.brandName = this.productDetails.Brand;
+      this.categoryName = this.productDetails.Category;
+      this.description = this.productDetails.Description;
+      this.discount = this.productDetails.Discount;
+      this.minimumqty = this.productDetails.MinimumQty;
+      this.price = this.productDetails.price;
+      this.productImage = this.productDetails.img;
+      this.productName = this.productDetails.ProductName;
+      this.quantity = this.productDetails.Qty;
+      this.sku = this.productDetails.SKU;
+      this.status = this.productDetails.Status;
+      this.subCategoryName = this.productDetails.SubCategoryName;
+      this.tax = this.productDetails.Tax;
+      this.unit = this.productDetails.Unit;
     });
   }
   printTable(): void {
+    // window.print();
+    const printContents: any = document.getElementById('printTable')?.outerHTML;
+    const originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
     window.print();
+
+    document.body.innerHTML = originalContents;
   }
 }

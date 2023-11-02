@@ -31,10 +31,11 @@ export class EditcategoryComponent implements OnInit {
     });
    }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.sub = this.route.queryParamMap.subscribe((params:any) => {      
-      let param = params.params.id;   
-      this.getCategoryById(param);
+      let param = params.params.Id;   
+      // this.getCategoryById(param);
+      setTimeout(() => {this.getCategoryById(param)},1000);
     });   
   }
   get f() { return this.categoryformValue.controls; }
@@ -44,9 +45,9 @@ export class EditcategoryComponent implements OnInit {
       this.convertedImg = res.data.url;     
     });
   }
-  getCategoryById(id:any){    
+  getCategoryById(id:any){     
     this.data.getCategoryListById(id).subscribe(res=>{
-      this.productCategoryImage = res.img;
+      this.productCategoryImage = res[0].img;
       if (this.productCategoryImage) {
         this.splitImage = this.productCategoryImage.split('/');
         this.imageName = this.splitImage[4];
@@ -54,15 +55,15 @@ export class EditcategoryComponent implements OnInit {
       this.updateCaregory(res);
     })
   }
-  updateCaregory(row: any){
-    this.addCategoryModelObj.id = row.id,
-    this.categoryformValue.controls['Categoryname'].setValue(row.Categoryname);
-    this.categoryformValue.controls['CategoryCode'].setValue(row.CategoryCode);
-    this.categoryformValue.controls['Description'].setValue(row.Description);   
+  updateCaregory(row: any){    
+    this.addCategoryModelObj.id = row[0].Id,
+    this.categoryformValue.controls['Categoryname'].setValue(row[0].Categoryname);
+    this.categoryformValue.controls['CategoryCode'].setValue(row[0].CategoryCode);
+    this.categoryformValue.controls['Description'].setValue(row[0].Description);   
     this.addCategoryModelObj.img = this.convertedImg;   
 
   }
-  onUpdateCategory() {
+  onUpdateCategory() {    
     this.submitted = true;
     if (this.productCategoryImage && !this.convertedImg) {      
       this.categoryformValue.get('img')?.clearValidators();

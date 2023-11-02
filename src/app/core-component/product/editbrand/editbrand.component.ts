@@ -30,10 +30,10 @@ export class EditbrandComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.sub = this.route.queryParamMap.subscribe((params: any) => {
-      let param = params.params.id;
-      this.getBrandListById(param);
+      let param = params.params.BrandId;      
+      setTimeout(() => {this.getBrandListById(param)},1000);
     });
   }
 
@@ -41,15 +41,15 @@ export class EditbrandComponent implements OnInit {
   onCancel() {
     this.show = !this.show
   }
-  onFileSelected(event: any) {
+  onFileSelected(event: any) {    
     this.productImage = event.target.files[0];
     this.data.uploadBrand(this.productImage).subscribe((res: any) => {
       this.convertedImg = res.data.url;
     });
   }
-  getBrandListById(id: any) {
-    this.data.getBrandListById(id).subscribe(res => {
-      this.productBrandImage = res.Image;
+  getBrandListById(BrandId: any) {    
+    this.data.getBrandListById(BrandId).subscribe(res => {
+      this.productBrandImage = res[0].Image;
       if (this.productBrandImage) {
         this.splitImage = this.productBrandImage.split('/');
         this.imageName = this.splitImage[4];
@@ -57,16 +57,16 @@ export class EditbrandComponent implements OnInit {
       this.updateBrand(res);
     })
   }
-  updateBrand(row: any) {
-    this.addBrandModelObj.id = row.id,
-      this.brandformValue.controls['BrandName'].setValue(row.BrandName);
-    this.brandformValue.controls['BrandDescription'].setValue(row.BrandDescription);
+  updateBrand(row: any) {    
+    this.addBrandModelObj.BrandId = row[0].BrandId,
+      this.brandformValue.controls['BrandName'].setValue(row[0].BrandName);
+    this.brandformValue.controls['BrandDescription'].setValue(row[0].BrandDescription);
     this.addBrandModelObj.Image = this.convertedImg;
 
   }
-  updateBranddata() {
+  updateBranddata() {    
     this.submitted = true;
-    if (this.productBrandImage && !this.convertedImg) {
+    if (this.productBrandImage && !this.convertedImg) {      
       this.brandformValue.get('Image')?.clearValidators();
       this.brandformValue.get('Image')?.updateValueAndValidity();
       this.addBrandModelObj.Image = this.productBrandImage;
@@ -82,7 +82,7 @@ export class EditbrandComponent implements OnInit {
     // this.addBrandModelObj.Image = this.convertedImg;
 
     let cancel = document.getElementById("cancel");
-    this.data.updateBrandList(this.addBrandModelObj, this.addBrandModelObj.id).subscribe(a => {
+    this.data.updateBrandList(this.addBrandModelObj, this.addBrandModelObj.BrandId).subscribe(a => {
       cancel?.click();
       this.sweetlalert.successBtn();
       this.router.navigate([this.routes.brandList]);

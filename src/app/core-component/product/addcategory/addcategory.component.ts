@@ -46,6 +46,7 @@ export class AddcategoryComponent implements OnInit {
     this.addCategoryModelObj.Description = this.categoryformValue.value.Description;
     this.addCategoryModelObj.img = this.convertedImg;
     this.addCategoryModelObj.id = this.categoryformValue.value.id;
+    this.addCategoryModelObj.CreatedBy= localStorage.getItem("Username");
     if (!this.addCategoryModelObj.id) {
       this.addCategoryModelObj.id = new Date().getTime();
     }

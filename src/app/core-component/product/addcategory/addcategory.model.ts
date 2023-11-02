@@ -4,4 +4,5 @@ export class AddCategoryModel {
     CategoryCode: string = "";
     Description: string = "";
     img: any;
+    CreatedBy:any;
 }

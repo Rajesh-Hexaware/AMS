@@ -18,14 +18,14 @@ export class ImportproductComponent implements OnInit {
   jsonData:any;
   importformValue!: FormGroup;
   submitted = false;
-  id:any
+  CreditedBy:any
   constructor(private http: HttpClient,private router: Router, private route: ActivatedRoute, private sweetlalert: SweetalertService, private formBuilder: FormBuilder, private data: DataService,) {
     this.importformValue = this.formBuilder.group({   
       file: ['', Validators.required],
     });
    }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {        
   }
   get f() { return this.importformValue.controls; }
   downloadTemplate(): void {
@@ -41,7 +41,7 @@ export class ImportproductComponent implements OnInit {
         downloadLink.click();
       });
   }
-  onFileChange(event: any): void {        
+  onFileChange(event: any): void {           
     const file = event.target.files[0];
     const fileReader = new FileReader();
 
@@ -60,10 +60,10 @@ export class ImportproductComponent implements OnInit {
     fileReader.readAsArrayBuffer(file);
   }
 
-  importData(data: any[][]): void {         
+  importData(data: any[][]): void {             
     const products = []; 
     // Assuming the data starts from the second row (index 1)
-    for (let i = 1; i < data.length; i++) {           
+    for (let i = 1; i < data.length; i++) {                      
       const ProductName = data[i][0];
       const Category = data[i][1];
       const subCategoryName = data[i][2];
@@ -77,9 +77,9 @@ export class ImportproductComponent implements OnInit {
       const discount = data[i][10]; 
       const price = data[i][11]; 
       const status = data[i][12]; 
-      const img = data[i][13]; 
-       this.product = {   
-        id : new Date().getTime(), 
+      const img = data[i][13];   
+      const CreatedBy = localStorage.getItem("Username");  
+       this.product = {                       
         ProductName,
         Category,
         subCategoryName,
@@ -93,18 +93,19 @@ export class ImportproductComponent implements OnInit {
         discount,
         price,
         status,
-        img     
+        img ,     
+        CreatedBy     
       };  
       products.push(this.product);
     }
     // Send the data to the web API    
   }
-  onSubmit(){    
+  onSubmit(){      
     this.submitted = true;
     if (this.importformValue.invalid) {
       return;
     }
-    this.data.postProductData(this.product).subscribe((response: any) => {         
+    this.data.postProductData(this.product).subscribe((response: any) => {               
       this.sweetlalert.successBtn();      
       this.router.navigate([this.routes.productList]);     
     });

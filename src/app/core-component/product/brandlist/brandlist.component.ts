@@ -38,6 +38,10 @@ export class BrandlistComponent implements OnInit {
     private sweetalert: SweetalertService,
     private router: Router
   ) {
+   
+  }
+
+  ngOnInit(): void {
     this.pagination.tablePageSize.subscribe((res: tablePageSize) => {
       if (this.router.url == this.routes.brandList) {
         this.getTableData({ skip: res.skip, limit: res.limit });
@@ -45,8 +49,6 @@ export class BrandlistComponent implements OnInit {
       }
     });
   }
-
-  ngOnInit(): void {}
 
   private getTableData(pageOption: pageSelection): void {
     this.data.getBrandList().subscribe((apiRes: any) => {
@@ -104,22 +106,32 @@ export class BrandlistComponent implements OnInit {
     }
   }
   onEdit(row: any) {
-    this.router.navigate([this.routes.editBrand], { queryParams: { id: row.id } });
-    // this.router.navigate(['/auth/signin'], { queryParams: { page: 1 } });
+    this.router.navigate([this.routes.editBrand], { queryParams: { BrandId: row.BrandId } });
+    
   }
   deleteBrand(row: any) {
-    this.data.deleteBrandList(row.id).subscribe(res => {
-      // alert("Record Deleted Succesfully");
-      this.sweetalert.deleteBtn();
-      this.router.navigate([this.routes.brandList]);      
-    });
+    this.sweetalert.deleteBtn().then((data: any) => {
+      if (data === true) {       
+        this.data.deleteBrandList(row.BrandId).subscribe(res => {
+          this.ngOnInit()
+        })
+      }
+    })
+      .catch((error: any) => {
+        console.error("An error occurred:", error);
+      });
   }
   printTable(): void {
+    // window.print();
+    const printContents: any = document.getElementById('printTable')?.outerHTML;
+    const originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
     window.print();
-    //  this.divToPrint = document.getElementById("printTable");  
-    //   this.newWin = window.open("");  
-    //   this.newWin.document.write(this.divToPrint.outerHTML);  
-    //   this.newWin.window.print();  
+
+    document.body.innerHTML = originalContents;
+
 
   }
   public openPDF(): void {

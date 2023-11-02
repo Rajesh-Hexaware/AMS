@@ -30,24 +30,25 @@ export class EditsubcategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.sub = this.route.queryParamMap.subscribe((params:any) => {    
-      let param = params.params.id;   
+      let param = params.params.Id;   
       this.getSubcategoryListtById(param);
+      setTimeout(() => {this.getSubcategoryListtById(param)},1000);
     });   
     this.getSubCategory();
   }
-  getSubcategoryListtById(id:any){
-    this.data.getSubcategoryListtById(id).subscribe(res=>{
+  getSubcategoryListtById(Id:any){
+    this.data.getSubcategoryListtById(Id).subscribe(res=>{
       this.updateSubCategory(res);
     })
   }
   get f() { return this.categoryformValue.controls; }
 
   updateSubCategory(row: any){
-    this.subAddCategoryModelObj.id = row.id,
-    this.categoryformValue.controls['Parentcategory'].setValue(row.Parentcategory);
-    this.categoryformValue.controls['Category'].setValue(row.Category);  
-    this.categoryformValue.controls['CategoryCode'].setValue(row.CategoryCode);  
-    this.categoryformValue.controls['Description'].setValue(row.Description);  
+    this.subAddCategoryModelObj.id = row[0].Id,
+    this.categoryformValue.controls['Parentcategory'].setValue(row[0].Parentcategory);
+    this.categoryformValue.controls['Category'].setValue(row[0].Category);  
+    this.categoryformValue.controls['CategoryCode'].setValue(row[0].CategoryCode);  
+    this.categoryformValue.controls['Description'].setValue(row[0].Description);  
    
   }
 updateSubCategoryData(){
@@ -72,7 +73,7 @@ updateSubCategoryData(){
     });
 }
   getSubCategory(){   
-    this.data.getSubcategoryList().subscribe(res=>{     
+    this.data.getCategoryList().subscribe(res=>{     
       this.subCategoryList = res;      
     });
   }

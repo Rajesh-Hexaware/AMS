@@ -3,3 +3,8 @@
     width: 111%; 
     font-size: 14px;
 }
+@media print {
+    #hide {
+      display: none;
+    }
+  }

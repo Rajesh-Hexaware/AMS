@@ -38,6 +38,13 @@ export class SubcategorylistComponent implements OnInit {
     private sweetalert: SweetalertService,
     private router: Router
   ) {
+   
+  }
+  deleteBtn() {
+    this.sweetalert.deleteBtn();
+  }
+
+  ngOnInit(): void {
     this.pagination.tablePageSize.subscribe((res: tablePageSize) => {
       if (this.router.url == this.routes.subCategoryList) {
         this.getTableData({ skip: res.skip, limit: res.limit });
@@ -45,11 +52,6 @@ export class SubcategorylistComponent implements OnInit {
       }
     });
   }
-  deleteBtn() {
-    this.sweetalert.deleteBtn();
-  }
-
-  ngOnInit(): void {}
 
   private getTableData(pageOption: pageSelection): void {
     this.data.getSubcategoryList().subscribe((apiRes: any) => {
@@ -105,12 +107,12 @@ export class SubcategorylistComponent implements OnInit {
     }
   }
   printTable(): void {
+    //window.print();
+    const printContents: any = document.getElementById('printTable')?.outerHTML;
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
     window.print();
-    //  this.divToPrint = document.getElementById("printTable");  
-    //   this.newWin = window.open("");  
-    //   this.newWin.document.write(this.divToPrint.outerHTML);  
-    //   this.newWin.window.print();  
-
+    document.body.innerHTML = originalContents;
   }
   public openPDF(): void {
     let DATA: any = document.getElementById('printTable');
@@ -139,18 +141,22 @@ export class SubcategorylistComponent implements OnInit {
     
   }
 
-  deleteProduct(row: any) {
-
-    this.data.deleteProductData(row.id).subscribe(res => {
-      // alert("Record Deleted Succesfully");
-      this.sweetalert.deleteBtn();
-      this.router.navigate([this.routes.productList]);
-      
+  deleteProduct(row: any) {    
+    this.sweetalert.deleteBtn().then((data: any) => {      
+      if (data === true) {       
+        this.data.deleteSubcategoryList(row.Id).subscribe(res => {
+          this.ngOnInit();
+        })
+      }
     })
+      .catch((error: any) => {
+        console.error("An error occurred:", error);
+      });
+   
 
   }
   onEdit(row: any) {
-    this.router.navigate([this.routes.editSubCategory], { queryParams: { id: row.id } });
+    this.router.navigate([this.routes.editSubCategory], { queryParams: { Id: row.Id } });
     // this.router.navigate(['/auth/signin'], { queryParams: { page: 1 } });
   }
 }

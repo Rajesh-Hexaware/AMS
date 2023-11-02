@@ -4,5 +4,6 @@ export class SubAddCategoryModel {
     Category: string = "";
     CategoryCode: string = "";
     Description: string ="";
+    CreatedBy:any;
    
 }

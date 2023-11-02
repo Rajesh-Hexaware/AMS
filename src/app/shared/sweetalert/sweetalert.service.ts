@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 export class SweetalertService {
 
   constructor() { }
-  deleteBtn() {
+  deleteBtn():Promise<any> {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -16,21 +16,24 @@ export class SweetalertService {
       buttonsStyling: false
     })
     
-    swalWithBootstrapButtons.fire({
+   let data = swalWithBootstrapButtons.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
+      showConfirmButton: true,
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
+      reverseButtons: true,
+      showLoaderOnConfirm: true   
+    }).then((result:any) => {
       if (result.isConfirmed) {
         swalWithBootstrapButtons.fire(
           'Deleted!',
           'Your file has been deleted.',
           'success'
         )
+        return result.isConfirmed
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
@@ -40,8 +43,10 @@ export class SweetalertService {
           'Your imaginary file is safe :)',
           'error'
         )
+        return result.dismiss
       }
     })
+    return data
   }
   successBtn() {
     Swal.fire({

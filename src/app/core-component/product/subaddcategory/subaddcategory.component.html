@@ -16,7 +16,7 @@
                             <select [ngClass]="{ 'is-invalid': submitted && f['Parentcategory'].errors }" class="form-control form-select"
                             id="Parentcategory" name="Parentcategory" formControlName="Parentcategory">
                                 <option>Choose Parent Category</option>
-                                <option *ngFor="let category of subCategoryList">{{category.Parentcategory}}</option>
+                                <option *ngFor="let category of subCategoryList">{{category.Categoryname}}</option>
                             </select>
                             <div *ngIf="submitted && f['Parentcategory'].errors" class="invalid-feedback">
                                 <div *ngIf="f['Parentcategory'].errors['required']">Parentcategory is required</div>

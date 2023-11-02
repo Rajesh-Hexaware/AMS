@@ -28,9 +28,9 @@ export class AddproductComponent implements OnInit {
     { value: '2', name: 'kg' },
   ];
    discountList = [
-    { value: '1', name: '10%'},
-    { value: '2', name: '20%' },
-    { value: '3', name: '30%' },
+    { value: '1', name: '10'},
+    { value: '2', name: '20' },
+    { value: '3', name: '30' },
   ];
   statusList=[
     { value: '1', name: 'Active'},
@@ -51,7 +51,7 @@ export class AddproductComponent implements OnInit {
       discount: ['', Validators.required],
       price: ['', Validators.required],
       status: ['', Validators.required],
-      img: ['', Validators.required],
+      img: ['', Validators.required],      
     })
   }
 
@@ -90,6 +90,7 @@ export class AddproductComponent implements OnInit {
     this.addProductModelObj.status = this.productformValue.value.status;
     this.addProductModelObj.img = this.convertedImg;
     this.addProductModelObj.id = this.productformValue.value.id;
+    this.addProductModelObj.CreatedBy = localStorage.getItem("Username");
     if (!this.addProductModelObj.id) {
       // Generate a unique timestamp-based ID
       this.addProductModelObj.id = new Date().getTime();

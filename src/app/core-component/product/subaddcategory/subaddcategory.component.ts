@@ -26,7 +26,7 @@ export class SubaddcategoryComponent implements OnInit {
     });
    }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.getSubCategory();
   }
   get f() { return this.categoryformValue.controls; }
@@ -40,6 +40,7 @@ export class SubaddcategoryComponent implements OnInit {
     this.subAddCategoryModelObj.CategoryCode = this.categoryformValue.value.CategoryCode;  
     this.subAddCategoryModelObj.Description = this.categoryformValue.value.Description;      
     this.subAddCategoryModelObj.id = this.categoryformValue.value.id;
+    this.subAddCategoryModelObj.CreatedBy= localStorage.getItem("Username");
     if (!this.subAddCategoryModelObj.id) {
       this.subAddCategoryModelObj.id = new Date().getTime();
     }
@@ -56,7 +57,7 @@ export class SubaddcategoryComponent implements OnInit {
       });
   }
   getSubCategory(){  
-    this.data.getSubcategoryList().subscribe(res=>{   
+    this.data.getCategoryList().subscribe(res=>{        
       this.subCategoryList = res;     
     });
   }

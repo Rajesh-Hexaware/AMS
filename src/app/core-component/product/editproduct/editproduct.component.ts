@@ -29,9 +29,9 @@ export class EditproductComponent implements OnInit {
     { value: '2', name: 'kg' },
   ];
   discountList = [
-    { value: '1', name: '10%' },
-    { value: '2', name: '20%' },
-    { value: '3', name: '30%' },
+    { value: '1', name: '10' },
+    { value: '2', name: '20' },
+    { value: '3', name: '30' },
   ];
   statusList = [
     { value: '1', name: 'Active' },
@@ -60,17 +60,18 @@ export class EditproductComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    this.sub = this.route.queryParamMap.subscribe((params: any) => {
-      let param = params.params.id;
-      this.getProductById(param);
+  ngOnInit(): void {    
+    this.sub = this.route.queryParamMap.subscribe((params: any) => {      
+      let param = params.params.Id;
+      setTimeout(() => {this.getProductById(param)},1000);
+      this.getProductBrandList();
+      this.getProductCategoryList();
+      this.getTaxRateList();
+      this.getProductSubCategoryList();
+      this.unitList;
+      this.discountList;
     });
-    this.getProductBrandList();
-    this.getProductCategoryList();
-    this.getTaxRateList();
-    this.getProductSubCategoryList();
-    this.unitList;
-    this.discountList;
+   
   }
   get f() { return this.productformValue.controls; }
 
@@ -80,9 +81,9 @@ export class EditproductComponent implements OnInit {
       this.convertedImg = res.data.url;
     });
   }
-  getProductById(id: any) {    
+  getProductById(id: any) {      
     this.data.getProductListById(id).subscribe(res => {
-      this.productEditImage = res.img;
+      this.productEditImage = res[0].img;
       if (this.productEditImage) {
         this.splitImage = this.productEditImage.split('/');
         this.imageName = this.splitImage[4];
@@ -91,25 +92,25 @@ export class EditproductComponent implements OnInit {
     })
 
   }
-  updateProduct(row: any) {    
-    this.addProductModelObj.id = row.id,
-    this.productformValue.controls['ProductName'].setValue(row.ProductName);
-    this.productformValue.controls['Category'].setValue(row.Category);
-    this.productformValue.controls['subCategoryName'].setValue(row.subCategoryName);
-    this.productformValue.controls['Brand'].setValue(row.Brand);
-    this.productformValue.controls['Unit'].setValue(row.Unit);
-    this.productformValue.controls['SKU'].setValue(row.SKU);
-    this.productformValue.controls['minimumqty'].setValue(row.minimumqty);
-    this.productformValue.controls['Qty'].setValue(row.Qty);
-    this.productformValue.controls['description'].setValue(row.description);
-    this.productformValue.controls['tax'].setValue(row.tax);
-    this.productformValue.controls['discount'].setValue(row.discount);
-    this.productformValue.controls['price'].setValue(row.price);
-    this.productformValue.controls['status'].setValue(row.status);
+  updateProduct(row: any) {         
+    this.addProductModelObj.id = row[0].Id,
+    this.productformValue.controls['ProductName'].setValue(row[0].ProductName);
+    this.productformValue.controls['Category'].setValue(row[0].Category);
+    this.productformValue.controls['subCategoryName'].setValue(row[0].SubCategoryName);
+    this.productformValue.controls['Brand'].setValue(row[0].Brand);
+    this.productformValue.controls['Unit'].setValue(row[0].Unit);
+    this.productformValue.controls['SKU'].setValue(row[0].SKU);
+    this.productformValue.controls['minimumqty'].setValue(row[0].MinimumQty);
+    this.productformValue.controls['Qty'].setValue(row[0].Qty);
+    this.productformValue.controls['description'].setValue(row[0].Description);
+    this.productformValue.controls['tax'].setValue(row[0].Tax);
+    this.productformValue.controls['discount'].setValue(row[0].Discount);
+    this.productformValue.controls['price'].setValue(row[0].price);
+    this.productformValue.controls['status'].setValue(row[0].Status);
     this.addProductModelObj.img = this.convertedImg;
 
   }
-  onUpdateProduct() {    
+  onUpdateProduct() {      
     this.submitted = true;
     if (this.productEditImage && !this.convertedImg) {      
       this.productformValue.get('img')?.clearValidators();

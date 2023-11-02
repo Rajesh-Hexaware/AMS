@@ -7,3 +7,8 @@
 div.dt-buttons .dt-button {
     display: none !important;
 }
+@media print {
+    #hide {
+      display: none;
+    }
+  }

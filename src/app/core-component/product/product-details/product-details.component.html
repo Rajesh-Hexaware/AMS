@@ -5,7 +5,7 @@
   </div>
 </div>
 <!-- /add -->
-<div class="row">
+<div class="row" id="printTable">
   <div class="col-lg-8 col-sm-12">
     <div class="card">
       <div class="card-body">
@@ -85,18 +85,18 @@
           <owl-carousel-o class="owl-theme product-slide" [options]="customOptions">
             <ng-template carouselSlide>
               <div class="slider-product">
-                <img src="assets/img/product/product69.jpg" alt="img" />
-                <h4>macbookpro.jpg</h4>
-                <h6>581kb</h6>
+                <img src={{productImage}} alt="img" />
+                <!-- <h4>macbookpro.jpg</h4>
+                <h6>581kb</h6> -->
               </div>
             </ng-template>
-            <ng-template carouselSlide>
+            <!-- <ng-template carouselSlide>
               <div carouselSlide class="slider-product">
                 <img src="assets/img/product/product69.jpg" alt="img" />
                 <h4>macbookpro.jpg</h4>
                 <h6>581kb</h6>
               </div>
-            </ng-template>
+            </ng-template> -->
           </owl-carousel-o>
 
           <!-- </div> -->

@@ -14,5 +14,6 @@ export class AddProductModel {
     price: any;
     status: any;
     img: any;
+    CreatedBy:any;
 
 }

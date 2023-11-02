@@ -40,6 +40,13 @@ export class ProductlistComponent implements OnInit {
     private sweetlalert: SweetalertService,
     private router: Router
   ) {
+  
+  }
+
+  deleteBtn() {
+    this.sweetlalert.deleteBtn();
+  }
+  ngOnInit(): void { 
     this.pagination.tablePageSize.subscribe((res: tablePageSize) => {
       if (this.router.url == this.routes.productList) {
         this.getTableData({ skip: res.skip, limit: res.limit });
@@ -47,11 +54,6 @@ export class ProductlistComponent implements OnInit {
       }
     });
   }
-
-  deleteBtn() {
-    this.sweetlalert.deleteBtn();
-  }
-  ngOnInit(): void { }
 
   private getTableData(pageOption: pageSelection): void {
     this.data.getProductList().subscribe((apiRes: any) => {
@@ -108,11 +110,12 @@ export class ProductlistComponent implements OnInit {
     }
   }
   printTable(): void {
+   // window.print();
+    const printContents: any = document.getElementById('printTable')?.outerHTML;
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
     window.print();
-    //  this.divToPrint = document.getElementById("printTable");  
-    //   this.newWin = window.open("");  
-    //   this.newWin.document.write(this.divToPrint.outerHTML);  
-    //   this.newWin.window.print();  
+    document.body.innerHTML = originalContents;
 
   }
   public openPDF(): void {
@@ -143,20 +146,23 @@ export class ProductlistComponent implements OnInit {
   }
 
   deleteProduct(row: any) {
-
-    this.data.deleteProductData(row.id).subscribe(res => {
-      // alert("Record Deleted Succesfully");
-      this.sweetlalert.deleteBtn();
-      this.router.navigate([this.routes.productList]);
-      
+    this.sweetlalert.deleteBtn().then((data: any) => {
+      if (data === true) {       
+        this.data.deleteProductData(row.Id).subscribe(res => {
+          this.ngOnInit()
+        })
+      }
     })
+      .catch((error: any) => {
+        console.error("An error occurred:", error);
+      });
 
   }
   onEdit(row: any) {
-    this.router.navigate([this.routes.editProduct], { queryParams: { id: row.id } });
+    this.router.navigate([this.routes.editProduct], { queryParams: { Id: row.Id } });
     // this.router.navigate(['/auth/signin'], { queryParams: { page: 1 } });
   }
   onDetail(row: any) {
-    this.router.navigate([this.routes.productDetails], { queryParams: { id: row.id } });
+    this.router.navigate([this.routes.productDetails], { queryParams: { Id: row.Id } });
   }
 }

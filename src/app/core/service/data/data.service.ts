@@ -53,7 +53,7 @@ export class DataService {
   }
 
   public getUserList(): Observable<any> {
-    return this.http.get('https://ams-json.onrender.com/userList').pipe(
+    return this.http.get('http://10.5.8.12/AMS/api/userList').pipe(
       map((res: any) => {
         return res;
       })
@@ -61,7 +61,7 @@ export class DataService {
   }
 
   public postUser(data:any): Observable<any> {
-    return this.http.post('https://ams-json.onrender.com/userList',data).pipe(
+    return this.http.post('http://10.5.8.12/AMS/api/userList',data).pipe(
       map((res: any) => {
         return res;
       })
@@ -76,33 +76,33 @@ export class DataService {
     );
   }
   public getProductList(): Observable<any> {
-    return this.http.get("https://ams-json.onrender.com/productList").pipe(
+    return this.http.get("https://10.5.8.12/AMS/api/Product").pipe(
       map((res: any) => {
         return res;
       })
     );
   }
   public getProductListById(id:any): Observable<any> {
-    return this.http.get("https://ams-json.onrender.com/productList/" + id).pipe(
+    return this.http.get("https://10.5.8.12/AMS/api/Product/" + id).pipe(
       map((res: any) => {
         return res;
       })
     );
   }
   public postProductData(data: any): Observable<any> {
-    return this.http.post("https://ams-json.onrender.com/productList",data).pipe(
+    return this.http.post("https://10.5.8.12/AMS/api/Product",data).pipe(
       map((res: any) => {
         return res;
       })
     );
   }
   public updateProductData(data: any, id: number) {    
-    return this.http.put("https://ams-json.onrender.com/productList/" + id, data).pipe(map((res: any) => {
+    return this.http.put("https://10.5.8.12/AMS/api/Product/" + id, data).pipe(map((res: any) => {
       return res;
     }))
   }
   public deleteProductData(id: number) {
-    return this.http.delete<any>("https://ams-json.onrender.com/productList/" + id).pipe(map((res: any) => {
+    return this.http.delete<any>("https://10.5.8.12/AMS/api/Product/" + id).pipe(map((res: any) => {
       return res;
     }))
   }
@@ -115,33 +115,33 @@ export class DataService {
     }));
   }
   public getCategoryList(): Observable<any> {
-    return this.http.get("https://ams-json.onrender.com/categoryList").pipe(
+    return this.http.get("http://10.5.8.12/AMS/api/categoryList").pipe(
       map((res: any) => {
         return res;
       })
     );
   }
   public postCategoryList(data: any): Observable<any> {
-    return this.http.post("https://ams-json.onrender.com/categoryList",data).pipe(
+    return this.http.post("http://10.5.8.12/AMS/api/categoryList",data).pipe(
       map((res: any) => {
         return res;
       })
     );
   }
   public getCategoryListById(id:any): Observable<any> {
-    return this.http.get("https://ams-json.onrender.com/categoryList/" + id).pipe(
+    return this.http.get("http://10.5.8.12/AMS/api/categoryList/" + id).pipe(
       map((res: any) => {
         return res;
       })
     );
   }
   public updateCategoryList(data: any, id: number) {    
-    return this.http.put("https://ams-json.onrender.com/categoryList/" + id, data).pipe(map((res: any) => {
+    return this.http.put("http://10.5.8.12/AMS/api/categoryList/" + id, data).pipe(map((res: any) => {
       return res;
     }))
   }
   public deleteCategoryList(id: number) {
-    return this.http.delete<any>("https://ams-json.onrender.com/categoryList/" + id).pipe(map((res: any) => {
+    return this.http.delete<any>("http://10.5.8.12/AMS/api/categoryList/" + id).pipe(map((res: any) => {
       return res;
     }))
   }
@@ -153,64 +153,65 @@ export class DataService {
     }));
   }
   public getSubcategoryList(): Observable<any> {
-    return this.http.get("https://ams-json.onrender.com/subCategoryList").pipe(
+    return this.http.get("http://10.5.8.12/AMS/api/subCategoryList").pipe(
       map((res: any) => {
         return res;
       })
     );
   }
   public postSubcategoryList(data: any): Observable<any> {
-    return this.http.post("https://ams-json.onrender.com/subCategoryList",data).pipe(
+    return this.http.post("http://10.5.8.12/AMS/api/subCategoryList",data).pipe(
       map((res: any) => {
         return res;
       })
     );
   }
   public getSubcategoryListtById(id:any): Observable<any> {
-    return this.http.get("https://ams-json.onrender.com/subCategoryList/" + id).pipe(
+    return this.http.get("http://10.5.8.12/AMS/api/subCategoryList/" + id).pipe(
       map((res: any) => {
         return res;
       })
     );
   }
   public updateSubcategoryList(data: any, id: number) {    
-    return this.http.put("https://ams-json.onrender.com/subCategoryList/" + id, data).pipe(map((res: any) => {
+    return this.http.put("http://10.5.8.12/AMS/api/subCategoryList/" + id, data).pipe(map((res: any) => {
       return res;
     }))
   }
-  public deleteSubcategoryList(id: number) {
-    return this.http.delete<any>("https://ams-json.onrender.com/subCategoryList/" + id).pipe(map((res: any) => {
+  public deleteSubcategoryList(id: number) {    
+    return this.http.delete<any>("http://10.5.8.12/AMS/api/subCategoryList/" + id).pipe(map((res: any) => {
       return res;
     }))
   }
   public getBrandList(): Observable<any> {
-    return this.http.get("https://ams-json.onrender.com/brandList").pipe(
+    return this.http.get("http://10.5.8.12/AMS/api/BrandList").pipe(
       map((res: any) => {
         return res;
       })
     );
   }
   public postBrandList(data: any): Observable<any> {
-    return this.http.post("https://ams-json.onrender.com/brandList",data).pipe(
+    return this.http.post("http://10.5.8.12/AMS/api/BrandList",data).pipe(
       map((res: any) => {
         return res;
       })
     );
   }
-  public getBrandListById(id:any): Observable<any> {
-    return this.http.get("https://ams-json.onrender.com/brandList/" + id).pipe(
+  public getBrandListById(BrandId:any): Observable<any> {
+    
+    return this.http.get("http://10.5.8.12/AMS/api/BrandList/" + BrandId).pipe(
       map((res: any) => {
         return res;
       })
     );
   }
-  public updateBrandList(data: any, id: number) {    
-    return this.http.put("https://ams-json.onrender.com/brandList/" + id, data).pipe(map((res: any) => {
+  public updateBrandList(data: any, BrandId: number) {    
+    return this.http.put("http://10.5.8.12/AMS/api/BrandList/" + BrandId, data).pipe(map((res: any) => {
       return res;
     }))
   }
-  public deleteBrandList(id: number) {
-    return this.http.delete<any>("https://ams-json.onrender.com/brandList/" + id).pipe(map((res: any) => {
+  public deleteBrandList(BrandId: number) {
+    return this.http.delete<any>("http://10.5.8.12/AMS/api/BrandList/" + BrandId).pipe(map((res: any) => {
       return res;
     }))
   }
