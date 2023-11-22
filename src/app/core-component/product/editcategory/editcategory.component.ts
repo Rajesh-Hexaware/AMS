@@ -79,6 +79,7 @@ export class EditcategoryComponent implements OnInit {
     this.addCategoryModelObj.Categoryname = this.categoryformValue.value.Categoryname;
     this.addCategoryModelObj.CategoryCode = this.categoryformValue.value.CategoryCode;
     this.addCategoryModelObj.Description = this.categoryformValue.value.Description;  
+    this.addCategoryModelObj.CreatedBy = localStorage.getItem("Username");
     // this.addCategoryModelObj.img = this.convertedImg;
 
     let cancel = document.getElementById("cancel");

@@ -60,6 +60,7 @@ updateSubCategoryData(){
   this.subAddCategoryModelObj.Category = this.categoryformValue.value.Category;  
   this.subAddCategoryModelObj.CategoryCode = this.categoryformValue.value.CategoryCode; 
   this.subAddCategoryModelObj.Description = this.categoryformValue.value.Description; 
+  this.subAddCategoryModelObj.CreatedBy = localStorage.getItem("Username");
 
   let cancel = document.getElementById("cancel");
   this.data.updateSubcategoryList(this.subAddCategoryModelObj, this.subAddCategoryModelObj.id).subscribe(a => {

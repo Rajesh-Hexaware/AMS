@@ -342,7 +342,7 @@ export class DataService {
     );
   }
   public getTaxRates(): Observable<any> {
-    return this.http.get("https://ams-json.onrender.com/taxRates").pipe(
+    return this.http.get("http://10.5.8.12/AMS/api/TaxRate").pipe(
       map((res: any) => {
         return res;
       })

@@ -73,12 +73,17 @@
   @extend %display-flex;
   @extend %align-items-center;
   @extend %justify-content-between;
-  width: 500px;
+  width: 100%;
   border: 1px solid $__dark__lights;
   padding: 15px;
   margin-bottom: 20px;
   max-width: $__full__width;
 }
+
+.bar-code-svg svg{
+  width: 100%;
+}
+
 .input-checkset {
   ul {
     @extend %display-flex;

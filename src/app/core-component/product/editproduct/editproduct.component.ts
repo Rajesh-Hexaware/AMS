@@ -136,6 +136,7 @@ export class EditproductComponent implements OnInit {
     this.addProductModelObj.discount = this.productformValue.value.discount;
     this.addProductModelObj.price = this.productformValue.value.price;
     this.addProductModelObj.status = this.productformValue.value.status;
+    this.addProductModelObj.CreatedBy = localStorage.getItem("Username");
 
     let cancel = document.getElementById("cancel");
     this.data.updateProductData(this.addProductModelObj, this.addProductModelObj.id).subscribe(a => {
